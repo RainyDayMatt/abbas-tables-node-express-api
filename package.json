@@ -1,0 +1,11 @@
+{
+  "name": "abbas-tables-node-express-api",
+  "version": "1.0.0",
+  "description": "API to serve data related to my local soup kitchen.",
+  "main": "src/server.js",
+  "scripts": {
+    "test": "export NODE_ENV=test && jasmine"
+  },
+  "author": "",
+  "license": "ISC"
+}
