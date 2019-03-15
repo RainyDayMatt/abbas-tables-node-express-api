@@ -471,7 +471,7 @@ describe("routes : users", () => {
         it("Should return the associated User object when the correct email and password are supplied.", (done) => {
             request.post(this.userSignInOptions,
                 (err, res, body) => {
-                    let signedInUser = JSON.parse(body);
+                    const signedInUser = JSON.parse(body);
                     expect(signedInUser.email).toBe("Shepard@n7.gov");
                     done();
                 }

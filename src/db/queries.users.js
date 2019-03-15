@@ -3,8 +3,8 @@ const bcrypt = require("bcryptjs");
 
 module.exports = {
     createUser(newUser, callback) {
-        let salt = bcrypt.genSaltSync();
-        let hashedPassword = bcrypt.hashSync(newUser.password, salt);
+        const salt = bcrypt.genSaltSync();
+        const hashedPassword = bcrypt.hashSync(newUser.password, salt);
         return User.create({
             email: newUser.email,
             password: hashedPassword,

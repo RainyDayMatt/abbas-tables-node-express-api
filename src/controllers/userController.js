@@ -2,7 +2,7 @@ const userQueries = require("../db/queries.users.js");
 
 module.exports = {
     create(req, res, next) {
-        let newUser = {
+        const newUser = {
             email: req.body.email,
             password: req.body.password,
             passwordConfirmation: req.body.passwordConfirmation,
@@ -28,7 +28,7 @@ module.exports = {
         });
     },
     signIn(req, res, next) {
-        let signInUser = {
+        const signInUser = {
             email: req.body.email,
             password: req.body.password
         };
