@@ -20,7 +20,7 @@ module.exports = {
         };
         userQueries.createUser(newUser, (err, user) => {
             if (err) {
-                res.json(err);
+                res.status(400).json({ err: err });
             }
             else {
                 res.json(user);
@@ -34,7 +34,7 @@ module.exports = {
         };
         userQueries.getUserLazy(signInUser, (err, user) => {
             if (err) {
-                res.json(err);
+                res.status(400).json({ err: err });
             }
             else {
                 res.json(user);
