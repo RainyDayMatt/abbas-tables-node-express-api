@@ -4,7 +4,7 @@
   "description": "API to serve data related to my local soup kitchen.",
   "main": "src/server.js",
   "scripts": {
-    "start": "nodemon src/server.js",
+    "start": "node src/server.js",
     "test": "export NODE_ENV=test && jasmine"
   },
   "author": "",
