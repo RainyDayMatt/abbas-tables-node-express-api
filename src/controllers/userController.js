@@ -23,7 +23,7 @@ module.exports = {
                 res.status(400).json({ err: err });
             }
             else {
-                res.json(user);
+                res.status(200).json({ user: user });
             }
         });
     },
@@ -37,7 +37,7 @@ module.exports = {
                 res.status(400).json({ err: err });
             }
             else {
-                res.json(user);
+                res.status(200).json({ user: user });
             }
         });
     }

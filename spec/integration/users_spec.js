@@ -33,7 +33,7 @@ describe("routes : users", () => {
             };
             done();
         });
-        it("Should create a User object with valid values and redirect.", (done) => {
+        it("Should create a User object with valid values and return it.", (done) => {
             request.post(this.userCreationOptions,
                 (err, res, body) => {
                     User.findOne({where: {email: this.userCreationOptions.form.email}})
@@ -86,7 +86,7 @@ describe("routes : users", () => {
                             User.findAll({where: {email: user.email}})
                                 .then((users) => {
                                     expect(users.length).toBe(1);
-                                    expect(JSON.parse(body).name).toBe("SequelizeUniqueConstraintError");
+                                    expect(JSON.parse(body).err.name).toBe("SequelizeUniqueConstraintError");
                                     done();
                                 })
                                 .catch((err) => {
@@ -471,7 +471,7 @@ describe("routes : users", () => {
         it("Should return the associated User object when the correct email and password are supplied.", (done) => {
             request.post(this.userSignInOptions,
                 (err, res, body) => {
-                    const signedInUser = JSON.parse(body);
+                    const signedInUser = JSON.parse(body).user;
                     expect(signedInUser.email).toBe("Shepard@n7.gov");
                     done();
                 }
@@ -481,7 +481,7 @@ describe("routes : users", () => {
             this.userSignInOptions.form.password = "M1nerals23";
             request.post(this.userSignInOptions,
                 (err, res, body) => {
-                    expect(JSON.parse(body)).toBe("Incorrect password.");
+                    expect(JSON.parse(body)).toEqual({ err: "Incorrect password." });
                     done();
                 }
             );
@@ -490,7 +490,7 @@ describe("routes : users", () => {
             this.userSignInOptions.form.email = "shepard@n7.edu";
             request.post(this.userSignInOptions,
                 (err, res, body) => {
-                    expect(JSON.parse(body)).toBe("Account with that email doesn't exist.");
+                    expect(JSON.parse(body)).toEqual({ err: "Account with that email doesn't exist." });
                     done();
                 }
             );
