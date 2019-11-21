@@ -2,13 +2,13 @@ module.exports = {
     validateUsers(req, res, next) {
         if (req.method === "POST") {
             req.checkBody("email", "Email must be a valid address.").isEmail();
-            req.checkBody("password", "Password must be alphanumeric.").isAlphanumeric();
             req.checkBody("password", "Password must be between six and 20 characters.").isLength({min: 6, max: 20});
-            req.checkBody("passwordConfirmation", "Confirmation must match provided password.").equals(req.body.password);
-            req.checkBody("firstName", "First name must consist only of letters.").isAlpha();
+            req.checkBody("password", "Password must be alphanumeric.").isAlphanumeric();
+            req.checkBody("confirmationPassword", "Confirmation must match provided password.").equals(req.body.password);
             req.checkBody("firstName", "First name must be between two and 20 characters.").isLength({min: 2, max: 20});
-            req.checkBody("lastName", "Last name must consist only of letters.").isAlpha();
+            req.checkBody("firstName", "First name must consist only of letters.").isAlpha();
             req.checkBody("lastName", "Last name must be between two and 20 characters.").isLength({min: 2, max: 20});
+            req.checkBody("lastName", "Last name must consist only of letters.").isAlpha();
             req.checkBody({"canEnterMealCount": {
                 optional: true,
                 isBoolean: {

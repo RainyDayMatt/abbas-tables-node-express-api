@@ -5,7 +5,7 @@ module.exports = {
         const newUser = {
             email: req.body.email,
             password: req.body.password,
-            passwordConfirmation: req.body.passwordConfirmation,
+            confirmationPassword: req.body.confirmationPassword,
             firstName: req.body.firstName,
             lastName: req.body.lastName,
             canEnterMealCount: req.body.canEnterMealCount,
