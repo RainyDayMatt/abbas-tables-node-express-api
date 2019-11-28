@@ -65,10 +65,12 @@ module.exports = {
             }});
         }
 
-        const errors = req.validationErrors();
-
-        if (errors) {
-            return res.json(errors);
+        if (req.validationErrors()) {
+            const errors = [];
+            req.validationErrors().forEach((error) => {
+                errors.push(error.msg);
+            });
+            return res.status(400).json(errors);
         } else {
             return next();
         }

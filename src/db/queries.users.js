@@ -2,6 +2,16 @@ const User = require("./models/").User;
 const bcrypt = require("bcryptjs");
 
 module.exports = {
+    checkUserEmailAvailability(email, callback) {
+        User.findAll({where: { email }})
+            .then((users) => {
+                if (users.length > 0) {
+                    callback("Account with that email already exists.");
+                } else {
+                    callback(null);
+                }
+            })
+    },
     createUser(newUser, callback) {
         const salt = bcrypt.genSaltSync();
         const hashedPassword = bcrypt.hashSync(newUser.password, salt);
