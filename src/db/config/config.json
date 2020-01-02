@@ -18,6 +18,7 @@
     "operatorsAliases": false
   },
   "production": {
+    "use_env_variable": "DATABASE_URL",
     "username": "postgres",
     "password": null,
     "database": "database_production",
