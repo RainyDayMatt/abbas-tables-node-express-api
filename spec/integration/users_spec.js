@@ -7,6 +7,8 @@ const User = require("../../src/db/models").User;
 
 const bcrypt = require("bcryptjs");
 
+const validationMessages = require("../../src/support/dictionary").getValidationMessages();
+
 describe("routes : users", () => {
     beforeEach((done) => {
         sequelize.sync({force: true})
@@ -26,7 +28,7 @@ describe("routes : users", () => {
                 form: {
                     email: "Shepard@n7.gov",
                     password: "M1nerals21",
-                    passwordConfirmation: "M1nerals21",
+                    confirmationPassword: "M1nerals21",
                     firstName: "John",
                     lastName: "Shepard"
                 }
@@ -86,7 +88,7 @@ describe("routes : users", () => {
                             User.findAll({where: {email: user.email}})
                                 .then((users) => {
                                     expect(users.length).toBe(1);
-                                    expect(JSON.parse(body).err.name).toBe("SequelizeUniqueConstraintError");
+                                    expect(JSON.parse(body).err[0]).toBe(validationMessages.emailIsNotUnique);
                                     done();
                                 })
                                 .catch((err) => {
@@ -108,7 +110,7 @@ describe("routes : users", () => {
                     User.findOne({where: {email: this.userCreationOptions.form.email}})
                         .then((user) => {
                             expect(user).toBeNull();
-                            expect(JSON.parse(body)[0].msg).toBe("Must be a valid address.");
+                            expect(JSON.parse(body).err[0]).toBe(validationMessages.emailIsInvalid);
                             done();
                         })
                         .catch((err) => {
@@ -125,7 +127,7 @@ describe("routes : users", () => {
                     User.findOne({where: {email: this.userCreationOptions.form.email}})
                         .then((user) => {
                             expect(user).toBeNull();
-                            expect(JSON.parse(body)[0].msg).toBe("Must be alphanumeric.");
+                            expect(JSON.parse(body).err[0]).toBe(validationMessages.passwordIsNotAlphanumeric);
                             done();
                         })
                         .catch((err) => {
@@ -142,7 +144,7 @@ describe("routes : users", () => {
                     User.findOne({where: {email: this.userCreationOptions.form.email}})
                         .then((user) => {
                             expect(user).toBeNull();
-                            expect(JSON.parse(body)[0].msg).toBe("Must be between six and 20 characters.");
+                            expect(JSON.parse(body).err[0]).toBe(validationMessages.passwordLengthIsInvalid);
                             done();
                         })
                         .catch((err) => {
@@ -159,7 +161,7 @@ describe("routes : users", () => {
                     User.findOne({where: {email: this.userCreationOptions.form.email}})
                         .then((user) => {
                             expect(user).toBeNull();
-                            expect(JSON.parse(body)[0].msg).toBe("Must be between six and 20 characters.");
+                            expect(JSON.parse(body).err[0]).toBe(validationMessages.passwordLengthIsInvalid);
                             done();
                         })
                         .catch((err) => {
@@ -170,13 +172,13 @@ describe("routes : users", () => {
             );
         });
         it("Should not create a User object with an invalid confirmation password (doesn't match password).", (done) => {
-            this.userCreationOptions.form.passwordConfirmation = "M1nerals22";
+            this.userCreationOptions.form.confirmationPassword = "M1nerals22";
             request.post(this.userCreationOptions,
                 (err, res, body) => {
                     User.findOne({where: {email: this.userCreationOptions.form.email}})
                         .then((user) => {
                             expect(user).toBeNull();
-                            expect(JSON.parse(body)[0].msg).toBe("Must match provided password.");
+                            expect(JSON.parse(body).err[0]).toBe(validationMessages.confirmationPasswordDoesNotMatch);
                             done();
                         })
                         .catch((err) => {
@@ -193,7 +195,7 @@ describe("routes : users", () => {
                     User.findOne({where: {email: this.userCreationOptions.form.email}})
                         .then((user) => {
                             expect(user).toBeNull();
-                            expect(JSON.parse(body)[0].msg).toBe("Must consist only of letters.");
+                            expect(JSON.parse(body).err[0]).toBe(validationMessages.firstNameIsNotAlphabetic);
                             done();
                         })
                         .catch((err) => {
@@ -210,7 +212,7 @@ describe("routes : users", () => {
                     User.findOne({where: {email: this.userCreationOptions.form.email}})
                         .then((user) => {
                             expect(user).toBeNull();
-                            expect(JSON.parse(body)[0].msg).toBe("Must be between two and 20 characters.");
+                            expect(JSON.parse(body).err[0]).toBe(validationMessages.firstNameLengthIsInvalid);
                             done();
                         })
                         .catch((err) => {
@@ -227,7 +229,7 @@ describe("routes : users", () => {
                     User.findOne({where: {email: this.userCreationOptions.form.email}})
                         .then((user) => {
                             expect(user).toBeNull();
-                            expect(JSON.parse(body)[0].msg).toBe("Must be between two and 20 characters.");
+                            expect(JSON.parse(body).err[0]).toBe(validationMessages.firstNameLengthIsInvalid);
                             done();
                         })
                         .catch((err) => {
@@ -244,7 +246,7 @@ describe("routes : users", () => {
                     User.findOne({where: {email: this.userCreationOptions.form.email}})
                         .then((user) => {
                             expect(user).toBeNull();
-                            expect(JSON.parse(body)[0].msg).toBe("Must consist only of letters.");
+                            expect(JSON.parse(body).err[0]).toBe(validationMessages.lastNameIsNotAlphabetic);
                             done();
                         })
                         .catch((err) => {
@@ -261,7 +263,7 @@ describe("routes : users", () => {
                     User.findOne({where: {email: this.userCreationOptions.form.email}})
                         .then((user) => {
                             expect(user).toBeNull();
-                            expect(JSON.parse(body)[0].msg).toBe("Must be between two and 20 characters.");
+                            expect(JSON.parse(body).err[0]).toBe(validationMessages.lastNameLengthIsInvalid);
                             done();
                         })
                         .catch((err) => {
@@ -278,7 +280,7 @@ describe("routes : users", () => {
                     User.findOne({where: {email: this.userCreationOptions.form.email}})
                         .then((user) => {
                             expect(user).toBeNull();
-                            expect(JSON.parse(body)[0].msg).toBe("Must be between two and 20 characters.");
+                            expect(JSON.parse(body).err[0]).toBe(validationMessages.lastNameLengthIsInvalid);
                             done();
                         })
                         .catch((err) => {
@@ -295,7 +297,7 @@ describe("routes : users", () => {
                     User.findOne({where: {email: this.userCreationOptions.form.email}})
                         .then((user) => {
                             expect(user).toBeNull();
-                            expect(JSON.parse(body)[0].msg).toBe("Must be a boolean.");
+                            expect(JSON.parse(body).err[0]).toBe(validationMessages.canEnterMealCountIsNotBoolean);
                             done();
                         })
                         .catch((err) => {
@@ -312,7 +314,7 @@ describe("routes : users", () => {
                     User.findOne({where: {email: this.userCreationOptions.form.email}})
                         .then((user) => {
                             expect(user).toBeNull();
-                            expect(JSON.parse(body)[0].msg).toBe("Must be a boolean.");
+                            expect(JSON.parse(body).err[0]).toBe(validationMessages.canChangePropsIsNotBoolean);
                             done();
                         })
                         .catch((err) => {
@@ -329,7 +331,7 @@ describe("routes : users", () => {
                     User.findOne({where: {email: this.userCreationOptions.form.email}})
                         .then((user) => {
                             expect(user).toBeNull();
-                            expect(JSON.parse(body)[0].msg).toBe("Must be a boolean.");
+                            expect(JSON.parse(body).err[0]).toBe(validationMessages.canCreateNewsItemsIsNotBoolean);
                             done();
                         })
                         .catch((err) => {
@@ -346,7 +348,7 @@ describe("routes : users", () => {
                     User.findOne({where: {email: this.userCreationOptions.form.email}})
                         .then((user) => {
                             expect(user).toBeNull();
-                            expect(JSON.parse(body)[0].msg).toBe("Must be a boolean.");
+                            expect(JSON.parse(body).err[0]).toBe(validationMessages.canEditNewsItemsIsNotBoolean);
                             done();
                         })
                         .catch((err) => {
@@ -363,7 +365,7 @@ describe("routes : users", () => {
                     User.findOne({where: {email: this.userCreationOptions.form.email}})
                         .then((user) => {
                             expect(user).toBeNull();
-                            expect(JSON.parse(body)[0].msg).toBe("Must be a boolean.");
+                            expect(JSON.parse(body).err[0]).toBe(validationMessages.canDeleteNewsItemsIsNotBoolean);
                             done();
                         })
                         .catch((err) => {
@@ -380,7 +382,7 @@ describe("routes : users", () => {
                     User.findOne({where: {email: this.userCreationOptions.form.email}})
                         .then((user) => {
                             expect(user).toBeNull();
-                            expect(JSON.parse(body)[0].msg).toBe("Must be a boolean.");
+                            expect(JSON.parse(body).err[0]).toBe(validationMessages.canCreateNewsItemCommentsIsNotBoolean);
                             done();
                         })
                         .catch((err) => {
@@ -397,7 +399,7 @@ describe("routes : users", () => {
                     User.findOne({where: {email: this.userCreationOptions.form.email}})
                         .then((user) => {
                             expect(user).toBeNull();
-                            expect(JSON.parse(body)[0].msg).toBe("Must be a boolean.");
+                            expect(JSON.parse(body).err[0]).toBe(validationMessages.canEditNewsItemCommentsIsNotBoolean);
                             done();
                         })
                         .catch((err) => {
@@ -414,7 +416,7 @@ describe("routes : users", () => {
                     User.findOne({where: {email: this.userCreationOptions.form.email}})
                         .then((user) => {
                             expect(user).toBeNull();
-                            expect(JSON.parse(body)[0].msg).toBe("Must be a boolean.");
+                            expect(JSON.parse(body).err[0]).toBe(validationMessages.canDeleteNewsItemCommentsIsNotBoolean);
                             done();
                         })
                         .catch((err) => {
@@ -431,7 +433,7 @@ describe("routes : users", () => {
                     User.findOne({where: {email: this.userCreationOptions.form.email}})
                         .then((user) => {
                             expect(user).toBeNull();
-                            expect(JSON.parse(body)[0].msg).toBe("Must be a boolean.");
+                            expect(JSON.parse(body).err[0]).toBe(validationMessages.canChangeRolesIsNotBoolean);
                             done();
                         })
                         .catch((err) => {

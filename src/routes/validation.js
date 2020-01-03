@@ -1,66 +1,68 @@
+const validationMessages = require("../support/dictionary").getValidationMessages();
+
 module.exports = {
     validateUsers(req, res, next) {
         if (req.method === "POST") {
-            req.checkBody("email", "Email must be a valid address.").isEmail();
-            req.checkBody("password", "Password must be between six and 20 characters.").isLength({min: 6, max: 20});
-            req.checkBody("password", "Password must be alphanumeric.").isAlphanumeric();
-            req.checkBody("confirmationPassword", "Confirmation must match provided password.").equals(req.body.password);
-            req.checkBody("firstName", "First name must be between two and 20 characters.").isLength({min: 2, max: 20});
-            req.checkBody("firstName", "First name must consist only of letters.").isAlpha();
-            req.checkBody("lastName", "Last name must be between two and 20 characters.").isLength({min: 2, max: 20});
-            req.checkBody("lastName", "Last name must consist only of letters.").isAlpha();
+            req.checkBody("email", validationMessages.emailIsInvalid).isEmail();
+            req.checkBody("password", validationMessages.passwordLengthIsInvalid).isLength({min: 6, max: 20});
+            req.checkBody("password", validationMessages.passwordIsNotAlphanumeric).isAlphanumeric();
+            req.checkBody("confirmationPassword", validationMessages.confirmationPasswordDoesNotMatch).equals(req.body.password);
+            req.checkBody("firstName", validationMessages.firstNameLengthIsInvalid).isLength({min: 2, max: 20});
+            req.checkBody("firstName", validationMessages.firstNameIsNotAlphabetic).isAlpha();
+            req.checkBody("lastName", validationMessages.lastNameLengthIsInvalid).isLength({min: 2, max: 20});
+            req.checkBody("lastName", validationMessages.lastNameIsNotAlphabetic).isAlpha();
             req.checkBody({"canEnterMealCount": {
                 optional: true,
                 isBoolean: {
-                    errorMessage: "Role (canEnterMealCount) must be a boolean."
+                    errorMessage: validationMessages.canEnterMealCountIsNotBoolean
                 }
             }});
             req.checkBody({"canChangeProps": {
                 optional: true,
                 isBoolean: {
-                    errorMessage: "Role (canChangeProps) must be a boolean."
+                    errorMessage: validationMessages.canChangePropsIsNotBoolean
                 }
             }});
             req.checkBody({"canCreateNewsItems": {
                 optional: true,
                 isBoolean: {
-                    errorMessage: "Role (canCreateNewsItems) must be a boolean."
+                    errorMessage: validationMessages.canCreateNewsItemsIsNotBoolean
                 }
             }});
             req.checkBody({"canEditNewsItems": {
                 optional: true,
                 isBoolean: {
-                    errorMessage: "Role (canEditNewsItems) must be a boolean."
+                    errorMessage: validationMessages.canEditNewsItemsIsNotBoolean
                 }
             }});
             req.checkBody({"canDeleteNewsItems": {
                 optional: true,
                 isBoolean: {
-                    errorMessage: "Role (canDeleteNewsItems) must be a boolean."
+                    errorMessage: validationMessages.canDeleteNewsItemsIsNotBoolean
                 }
             }});
             req.checkBody({"canCreateNewsItemComments": {
                 optional: true,
                 isBoolean: {
-                    errorMessage: "Role (canCreateNewsItemComments) must be a boolean."
+                    errorMessage: validationMessages.canCreateNewsItemCommentsIsNotBoolean
                 }
             }});
             req.checkBody({"canEditNewsItemComments": {
                 optional: true,
                 isBoolean: {
-                    errorMessage: "Role (canEditNewsItemComments) must be a boolean."
+                    errorMessage: validationMessages.canEditNewsItemCommentsIsNotBoolean
                 }
             }});
             req.checkBody({"canDeleteNewsItemComments": {
                 optional: true,
                 isBoolean: {
-                    errorMessage: "Role (canDeleteNewsItemComments) must be a boolean."
+                    errorMessage: validationMessages.canDeleteNewsItemCommentsIsNotBoolean
                 }
             }});
             req.checkBody({"canChangeRoles": {
                 optional: true,
                 isBoolean: {
-                    errorMessage: "Role (canChangeRoles) must be a boolean."
+                    errorMessage: validationMessages.canChangeRolesIsNotBoolean
                 }
             }});
         }
@@ -70,7 +72,7 @@ module.exports = {
             req.validationErrors().forEach((error) => {
                 errors.push(error.msg);
             });
-            return res.status(400).json(errors);
+            return res.status(400).json({ err: errors });
         } else {
             return next();
         }
