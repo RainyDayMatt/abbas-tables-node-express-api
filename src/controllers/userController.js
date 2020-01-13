@@ -19,7 +19,6 @@ module.exports = {
             canDeleteNewsItemComments: req.body.canDeleteNewsItemComments,
             canChangeRoles: req.body.canChangeRoles
         };
-        console.log(newUser);
         userQueries.createUser(newUser, (err, user) => {
             if (err) {
                 res.status(400).json({ err: err });
