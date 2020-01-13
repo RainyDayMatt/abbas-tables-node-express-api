@@ -20,6 +20,7 @@ module.exports = {
             password: hashedPassword,
             firstName: newUser.firstName,
             lastName: newUser.lastName,
+            mobilePhone: newUser.mobilePhone,
             canEnterMealCount: newUser.canEnterMealCount,
             canChangeProps: newUser.canChangeProps,
             canCreateNewsItems: newUser.canCreateNewsItems,

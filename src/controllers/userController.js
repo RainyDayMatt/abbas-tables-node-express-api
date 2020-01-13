@@ -8,6 +8,7 @@ module.exports = {
             confirmationPassword: req.body.confirmationPassword,
             firstName: req.body.firstName,
             lastName: req.body.lastName,
+            mobilePhone: req.body.mobilePhone,
             canEnterMealCount: req.body.canEnterMealCount,
             canChangeProps: req.body.canChangeProps,
             canCreateNewsItems: req.body.canCreateNewsItems,
