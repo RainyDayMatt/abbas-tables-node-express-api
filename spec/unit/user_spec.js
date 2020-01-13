@@ -1,6 +1,8 @@
 const sequelize = require("../../src/db/models/index").sequelize;
 const User = require("../../src/db/models").User;
 
+const validationMessages = require("../../src/support/dictionary").getValidationMessages();
+
 describe("User", () => {
     beforeEach((done) => {
         sequelize.sync({force: true})
@@ -105,7 +107,7 @@ describe("User", () => {
                 })
                 .catch((err) => {
                     expect(err.errors.length).toEqual(1);
-                    expect(err.errors[0].message).toContain("Must be a valid email.");
+                    expect(err.errors[0].message).toContain(validationMessages.emailIsInvalid);
                     done();
                 });
         });
@@ -144,7 +146,20 @@ describe("User", () => {
                 })
                 .catch((err) => {
                     expect(err.errors.length).toEqual(1);
-                    expect(err.errors[0].message).toContain("Must consist only of letters.");
+                    expect(err.errors[0].message).toContain(validationMessages.firstNameIsNotAlphabetic);
+                    done();
+                });
+        });
+        it("Should not create a User object with a first name of invalid length.", (done) => {
+            this.userCreationOptions.firstName = "J";
+            User.create(this.userCreationOptions)
+                .then((user) => {
+                    fail("Validation failed to catch: invalid first name length.");
+                    done();
+                })
+                .catch((err) => {
+                    expect(err.errors.length).toEqual(1);
+                    expect(err.errors[0].message).toContain(validationMessages.firstNameLengthIsInvalid);
                     done();
                 });
         });
@@ -170,7 +185,20 @@ describe("User", () => {
                 })
                 .catch((err) => {
                     expect(err.errors.length).toEqual(1);
-                    expect(err.errors[0].message).toContain("Must consist only of letters.");
+                    expect(err.errors[0].message).toContain(validationMessages.lastNameIsNotAlphabetic);
+                    done();
+                });
+        });
+        it("Should not create a User object with a last name of invalid length.", (done) => {
+            this.userCreationOptions.lastName = "S";
+            User.create(this.userCreationOptions)
+                .then((user) => {
+                    fail("Validation failed to catch: invalid last name length.");
+                    done();
+                })
+                .catch((err) => {
+                    expect(err.errors.length).toEqual(1);
+                    expect(err.errors[0].message).toContain(validationMessages.lastNameLengthIsInvalid);
                     done();
                 });
         });
@@ -188,7 +216,7 @@ describe("User", () => {
                 });
         });
         it("Should not create a User object with an invalid mobile phone.", (done) => {
-            this.userCreationOptions.mobilePhone = "b@dph0ne";
+            this.userCreationOptions.mobilePhone = "myb@dph0ne";
             User.create(this.userCreationOptions)
                 .then((user) => {
                     fail("Validation failed to catch: invalid mobile phone.");
@@ -196,12 +224,25 @@ describe("User", () => {
                 })
                 .catch((err) => {
                     expect(err.errors.length).toEqual(1);
-                    expect(err.errors[0].message).toContain("Must consist only of numbers.");
+                    expect(err.errors[0].message).toContain(validationMessages.mobilePhoneIsNotNumeric);
+                    done();
+                });
+        });
+        it("Should not create a User object with a mobile phone of invalid length.", (done) => {
+            this.userCreationOptions.mobilePhone = "15804361776";
+            User.create(this.userCreationOptions)
+                .then((user) => {
+                    fail("Validation failed to catch: invalid mobile phone length.");
+                    done();
+                })
+                .catch((err) => {
+                    expect(err.errors.length).toEqual(1);
+                    expect(err.errors[0].message).toContain(validationMessages.mobilePhoneLengthIsInvalid);
                     done();
                 });
         });
         it("Should not create a User object with an invalid home phone.", (done) => {
-            this.userCreationOptions.homePhone = "b@dph0ne";
+            this.userCreationOptions.homePhone = "myb@dph0ne";
             User.create(this.userCreationOptions)
                 .then((user) => {
                     fail("Validation failed to catch: invalid home phone.");
@@ -209,12 +250,25 @@ describe("User", () => {
                 })
                 .catch((err) => {
                     expect(err.errors.length).toEqual(1);
-                    expect(err.errors[0].message).toContain("Must consist only of numbers.");
+                    expect(err.errors[0].message).toContain(validationMessages.homePhoneIsNotNumeric);
+                    done();
+                });
+        });
+        it("Should not create a User object with a home phone of invalid length.", (done) => {
+            this.userCreationOptions.homePhone = "15804361776";
+            User.create(this.userCreationOptions)
+                .then((user) => {
+                    fail("Validation failed to catch: invalid home phone length.");
+                    done();
+                })
+                .catch((err) => {
+                    expect(err.errors.length).toEqual(1);
+                    expect(err.errors[0].message).toContain(validationMessages.homePhoneLengthIsInvalid);
                     done();
                 });
         });
         it("Should not create a User object with an invalid work phone.", (done) => {
-            this.userCreationOptions.workPhone = "b@dph0ne";
+            this.userCreationOptions.workPhone = "myb@dph0ne";
             User.create(this.userCreationOptions)
                 .then((user) => {
                     fail("Validation failed to catch: invalid work phone.");
@@ -222,12 +276,25 @@ describe("User", () => {
                 })
                 .catch((err) => {
                     expect(err.errors.length).toEqual(1);
-                    expect(err.errors[0].message).toContain("Must consist only of numbers.");
+                    expect(err.errors[0].message).toContain(validationMessages.workPhoneIsNotNumeric);
+                    done();
+                });
+        });
+        it("Should not create a User object with a work phone of invalid length.", (done) => {
+            this.userCreationOptions.workPhone = "15804361776";
+            User.create(this.userCreationOptions)
+                .then((user) => {
+                    fail("Validation failed to catch: invalid work phone length.");
+                    done();
+                })
+                .catch((err) => {
+                    expect(err.errors.length).toEqual(1);
+                    expect(err.errors[0].message).toContain(validationMessages.workPhoneLengthIsInvalid);
                     done();
                 });
         });
         it("Should not create a User object with an invalid other phone.", (done) => {
-            this.userCreationOptions.otherPhone = "b@dph0ne";
+            this.userCreationOptions.otherPhone = "myb@dph0ne";
             User.create(this.userCreationOptions)
                 .then((user) => {
                     fail("Validation failed to catch: invalid other phone.");
@@ -235,7 +302,20 @@ describe("User", () => {
                 })
                 .catch((err) => {
                     expect(err.errors.length).toEqual(1);
-                    expect(err.errors[0].message).toContain("Must consist only of numbers.");
+                    expect(err.errors[0].message).toContain(validationMessages.otherPhoneIsNotNumeric);
+                    done();
+                });
+        });
+        it("Should not create a User object with a other phone of invalid length.", (done) => {
+            this.userCreationOptions.otherPhone = "15804361776";
+            User.create(this.userCreationOptions)
+                .then((user) => {
+                    fail("Validation failed to catch: invalid other phone length.");
+                    done();
+                })
+                .catch((err) => {
+                    expect(err.errors.length).toEqual(1);
+                    expect(err.errors[0].message).toContain(validationMessages.otherPhoneLengthIsInvalid);
                     done();
                 });
         });
@@ -255,24 +335,15 @@ describe("User", () => {
                     done();
                 })
                 .catch((err) => {
-                    expect(err.errors[0].path).toBe("canEnterMealCount");
-                    expect(err.errors[0].message).toBe("Must be a boolean.");
-                    expect(err.errors[1].path).toBe("canChangeProps");
-                    expect(err.errors[1].message).toBe("Must be a boolean.");
-                    expect(err.errors[2].path).toBe("canCreateNewsItems");
-                    expect(err.errors[2].message).toBe("Must be a boolean.");
-                    expect(err.errors[3].path).toBe("canEditNewsItems");
-                    expect(err.errors[3].message).toBe("Must be a boolean.");
-                    expect(err.errors[4].path).toBe("canDeleteNewsItems");
-                    expect(err.errors[4].message).toBe("Must be a boolean.");
-                    expect(err.errors[5].path).toBe("canCreateNewsItemComments");
-                    expect(err.errors[5].message).toBe("Must be a boolean.");
-                    expect(err.errors[6].path).toBe("canEditNewsItemComments");
-                    expect(err.errors[6].message).toBe("Must be a boolean.");
-                    expect(err.errors[7].path).toBe("canDeleteNewsItemComments");
-                    expect(err.errors[7].message).toBe("Must be a boolean.");
-                    expect(err.errors[8].path).toBe("canChangeRoles");
-                    expect(err.errors[8].message).toBe("Must be a boolean.");
+                    expect(err.errors[0].message).toBe(validationMessages.canEnterMealCountIsNotBoolean);
+                    expect(err.errors[1].message).toBe(validationMessages.canChangePropsIsNotBoolean);
+                    expect(err.errors[2].message).toBe(validationMessages.canCreateNewsItemsIsNotBoolean);
+                    expect(err.errors[3].message).toBe(validationMessages.canEditNewsItemsIsNotBoolean);
+                    expect(err.errors[4].message).toBe(validationMessages.canDeleteNewsItemsIsNotBoolean);
+                    expect(err.errors[5].message).toBe(validationMessages.canCreateNewsItemCommentsIsNotBoolean);
+                    expect(err.errors[6].message).toBe(validationMessages.canEditNewsItemCommentsIsNotBoolean);
+                    expect(err.errors[7].message).toBe(validationMessages.canDeleteNewsItemCommentsIsNotBoolean);
+                    expect(err.errors[8].message).toBe(validationMessages.canChangeRolesIsNotBoolean);
                     done();
                 });
         });

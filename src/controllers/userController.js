@@ -8,6 +8,7 @@ module.exports = {
             confirmationPassword: req.body.confirmationPassword,
             firstName: req.body.firstName,
             lastName: req.body.lastName,
+            mobilePhone: req.body.mobilePhone,
             canEnterMealCount: req.body.canEnterMealCount,
             canChangeProps: req.body.canChangeProps,
             canCreateNewsItems: req.body.canCreateNewsItems,
@@ -18,6 +19,7 @@ module.exports = {
             canDeleteNewsItemComments: req.body.canDeleteNewsItemComments,
             canChangeRoles: req.body.canChangeRoles
         };
+        console.log(newUser);
         userQueries.createUser(newUser, (err, user) => {
             if (err) {
                 res.status(400).json({ err: err });

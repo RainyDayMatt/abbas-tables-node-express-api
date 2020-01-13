@@ -133,6 +133,7 @@ describe("routes : properties", () => {
                 passwordConfirmation: "M1nerals21",
                 firstName: "John",
                 lastName: "Shepard",
+                mobilePhone: "5804361776",
                 canChangeProps: true
             };
         });

@@ -8,6 +8,14 @@ module.exports = {
                 primaryKey: true,
                 type: Sequelize.INTEGER
         };
+        userSource.createdAt = {
+            allowNull: false,
+            type: Sequelize.DATE
+        };
+        userSource.updatedAt = {
+            allowNull: false,
+            type: Sequelize.DATE
+        };
         return queryInterface.createTable('Users', userSource);
     },
     down: (queryInterface, Sequelize) => {

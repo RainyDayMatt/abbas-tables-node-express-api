@@ -1,5 +1,6 @@
 module.exports = {
     getDefinition(types) {
+        const validationMessages = require("../../support/dictionary").getValidationMessages();
         return {
             email: {
                 allowNull: false,
@@ -7,7 +8,7 @@ module.exports = {
                 type: types.STRING,
                 validate: {
                     isEmail: {
-                        msg: "Must be a valid email."
+                        msg: validationMessages.emailIsInvalid
                     }
                 }
             },
@@ -20,7 +21,12 @@ module.exports = {
                 type: types.STRING,
                 validate: {
                     isAlpha: {
-                        msg: "Must consist only of letters."
+                        msg: validationMessages.firstNameIsNotAlphabetic
+                    },
+                    isLength: {
+                        min: 2,
+                        max: 20,
+                        msg: validationMessages.firstNameLengthIsInvalid
                     }
                 }
             },
@@ -29,7 +35,12 @@ module.exports = {
                 type: types.STRING,
                 validate: {
                     isAlpha: {
-                        msg: "Must consist only of letters."
+                        msg: validationMessages.lastNameIsNotAlphabetic
+                    },
+                    isLength: {
+                        min: 2,
+                        max: 20,
+                        msg: validationMessages.lastNameLengthIsInvalid
                     }
                 }
             },
@@ -37,8 +48,13 @@ module.exports = {
                 allowNull: false,
                 type: types.STRING,
                 validate: {
+                    isLength: {
+                        min: 10,
+                        max: 10,
+                        msg: validationMessages.mobilePhoneLengthIsInvalid
+                    },
                     isNumeric: {
-                        msg: "Must consist only of numbers."
+                        msg: validationMessages.mobilePhoneIsNotNumeric
                     }
                 }
             },
@@ -46,8 +62,13 @@ module.exports = {
                 allowNull: true,
                 type: types.STRING,
                 validate: {
+                    isLength: {
+                        min: 10,
+                        max: 10,
+                        msg: validationMessages.homePhoneLengthIsInvalid
+                    },
                     isNumeric: {
-                        msg: "Must consist only of numbers."
+                        msg: validationMessages.homePhoneIsNotNumeric
                     }
                 }
             },
@@ -55,8 +76,13 @@ module.exports = {
                 allowNull: true,
                 type: types.STRING,
                 validate: {
+                    isLength: {
+                        min: 10,
+                        max: 10,
+                        msg: validationMessages.workPhoneLengthIsInvalid
+                    },
                     isNumeric: {
-                        msg: "Must consist only of numbers."
+                        msg: validationMessages.workPhoneIsNotNumeric
                     }
                 }
             },
@@ -64,8 +90,13 @@ module.exports = {
                 allowNull: true,
                 type: types.STRING,
                 validate: {
+                    isLength: {
+                        min: 10,
+                        max: 10,
+                        msg: validationMessages.otherPhoneLengthIsInvalid
+                    },
                     isNumeric: {
-                        msg: "Must consist only of numbers."
+                        msg: validationMessages.otherPhoneIsNotNumeric
                     }
                 }
             },
@@ -74,7 +105,7 @@ module.exports = {
                 type: types.BOOLEAN,
                 validate: {
                     isBoolean: {
-                        msg: "Must be a boolean."
+                        msg: validationMessages.canEnterMealCountIsNotBoolean
                     }
                 }
             },
@@ -83,7 +114,7 @@ module.exports = {
                 type: types.BOOLEAN,
                 validate: {
                     isBoolean: {
-                        msg: "Must be a boolean."
+                        msg: validationMessages.canChangePropsIsNotBoolean
                     }
                 }
             },
@@ -92,7 +123,7 @@ module.exports = {
                 type: types.BOOLEAN,
                 validate: {
                     isBoolean: {
-                        msg: "Must be a boolean."
+                        msg: validationMessages.canCreateNewsItemsIsNotBoolean
                     }
                 }
             },
@@ -101,7 +132,7 @@ module.exports = {
                 type: types.BOOLEAN,
                 validate: {
                     isBoolean: {
-                        msg: "Must be a boolean."
+                        msg: validationMessages.canEditNewsItemsIsNotBoolean
                     }
                 }
             },
@@ -110,7 +141,7 @@ module.exports = {
                 type: types.BOOLEAN,
                 validate: {
                     isBoolean: {
-                        msg: "Must be a boolean."
+                        msg: validationMessages.canDeleteNewsItemsIsNotBoolean
                     }
                 }
             },
@@ -119,7 +150,7 @@ module.exports = {
                 type: types.BOOLEAN,
                 validate: {
                     isBoolean: {
-                        msg: "Must be a boolean."
+                        msg: validationMessages.canCreateNewsItemCommentsIsNotBoolean
                     }
                 }
             },
@@ -128,7 +159,7 @@ module.exports = {
                 type: types.BOOLEAN,
                 validate: {
                     isBoolean: {
-                        msg: "Must be a boolean."
+                        msg: validationMessages.canEditNewsItemCommentsIsNotBoolean
                     }
                 }
             },
@@ -137,7 +168,7 @@ module.exports = {
                 type: types.BOOLEAN,
                 validate: {
                     isBoolean: {
-                        msg: "Must be a boolean."
+                        msg: validationMessages.canDeleteNewsItemCommentsIsNotBoolean
                     }
                 }
             },
@@ -146,7 +177,7 @@ module.exports = {
                 type: types.BOOLEAN,
                 validate: {
                     isBoolean: {
-                        msg: "Must be a boolean."
+                        msg: validationMessages.canChangeRolesIsNotBoolean
                     }
                 }
             }

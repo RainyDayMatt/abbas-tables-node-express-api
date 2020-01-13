@@ -30,7 +30,8 @@ describe("routes : users", () => {
                     password: "M1nerals21",
                     confirmationPassword: "M1nerals21",
                     firstName: "John",
-                    lastName: "Shepard"
+                    lastName: "Shepard",
+                    mobilePhone: "5804361776"
                 }
             };
             done();
@@ -80,7 +81,8 @@ describe("routes : users", () => {
                 email: this.userCreationOptions.form.email,
                 password: this.userCreationOptions.form.password,
                 firstName: this.userCreationOptions.form.firstName,
-                lastName: this.userCreationOptions.form.lastName
+                lastName: this.userCreationOptions.form.lastName,
+                mobilePhone: this.userCreationOptions.form.mobilePhone
             })
                 .then((user) => {
                     request.post(this.userCreationOptions,
@@ -456,17 +458,18 @@ describe("routes : users", () => {
             };
             const salt = bcrypt.genSaltSync();
             const userCreationBeforeSignInOptions = {
-                    email: this.userSignInOptions.form.email,
-                    password: bcrypt.hashSync(this.userSignInOptions.form.password, salt),
-                    firstName: "John",
-                    lastName: "Shepard"
+                email: this.userSignInOptions.form.email,
+                password: bcrypt.hashSync(this.userSignInOptions.form.password, salt),
+                firstName: "John",
+                lastName: "Shepard",
+                mobilePhone: "5804361776"
             };
             User.create(userCreationBeforeSignInOptions)
                 .then(() => {
                     done();
                 })
                 .catch((err) => {
-                    console.log(err);
+                    fail("Error creating first user for sign-in specs in User integration test.");
                     done();
                 })
         });
