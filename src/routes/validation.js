@@ -1,4 +1,4 @@
-const validationMessages = require("../support/dictionary").getValidationMessages();
+const validationMessages = require("../support/dictionary").getUserValidationMessages();
 
 module.exports = {
     validateUsers(req, res, next) {

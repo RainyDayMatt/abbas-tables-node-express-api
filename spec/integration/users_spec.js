@@ -7,7 +7,7 @@ const User = require("../../src/db/models").User;
 
 const bcrypt = require("bcryptjs");
 
-const validationMessages = require("../../src/support/dictionary").getValidationMessages();
+const validationMessages = require("../../src/support/dictionary").getUserValidationMessages();
 
 describe("routes : users", () => {
     beforeEach((done) => {

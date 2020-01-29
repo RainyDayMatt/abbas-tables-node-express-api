@@ -1,6 +1,6 @@
 module.exports = {
     getDefinition(types) {
-        const validationMessages = require("../../support/dictionary").getValidationMessages();
+        const validationMessages = require("../../support/dictionary").getUserValidationMessages();
         return {
             email: {
                 allowNull: false,

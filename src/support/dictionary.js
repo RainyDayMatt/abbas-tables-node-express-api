@@ -1,5 +1,5 @@
 module.exports = {
-    getValidationMessages() {
+    getUserValidationMessages() {
         return {
             emailIsNull: "Email cannot be null.",
             emailIsInvalid: "Email must be a valid address.",
@@ -34,5 +34,29 @@ module.exports = {
             canDeleteNewsItemCommentsIsNotBoolean: "Role (canDeleteNewsItemComments) must be a boolean.",
             canChangeRolesIsNotBoolean: "Role (canChangeRoles) must be a boolean."
         };
+    },
+    getServingSummaryValidationMessages() {
+        return {
+            yearIsNull: "Year cannot be null.",
+            yearIsNotNumeric: "Year must consist only of numbers.",
+            monthIsNull: "Month cannot be null.",
+            monthIsNotNumeric: "Month must consist only of numbers.",
+            dayIsNull: "Day cannot be null.",
+            dayIsNotNumeric: "Day must consist only of numbers.",
+            totalMealsIsNull: "Total meals cannot be null.",
+            totalMealsIsNotNumeric: "Total meals must consist only of numbers.",
+            adultGuestMealsIsNull: "Adult guest meals cannot be null.",
+            adultGuestMealsIsNotNumeric: "Adult guest meals must consist only of numbers.",
+            childGuestMealsIsNull: "Child guest meals cannot be null.",
+            childGuestMealsIsNotNumeric: "Child guest meals must consist only of numbers.",
+            volunteerMealsIsNull: "Volunteer meals cannot be null.",
+            volunteerMealsIsNotNumeric: "Volunteer meals must consist only of numbers.",
+            whichUserCreatedEmailIsNull: "Email signifying creating user cannot be null.",
+            whichUserCreatedEmailIsInvalid: "Email signifying creating user must be a valid address.",
+            whichUserLastChangedEmailIsNull: "Email signifying changing user cannot be null.",
+            whichUserLastChangedEmailIsInvalid: "Email signifying changing user must be a valid address.",
+            hadIncidentIsNull: "Incident flag cannot be null.",
+            hadIncidentIsNotBoolean: "Incident flag must be boolean."
+        }
     }
 };
