@@ -4,9 +4,9 @@ module.exports = {
         const userSource = require("../../support/modelDefinitions/userSource").getDefinition(Sequelize);
         userSource.id = {
             allowNull: false,
-                autoIncrement: true,
-                primaryKey: true,
-                type: Sequelize.INTEGER
+            autoIncrement: true,
+            primaryKey: true,
+            type: Sequelize.INTEGER
         };
         userSource.createdAt = {
             allowNull: false,

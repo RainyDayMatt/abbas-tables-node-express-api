@@ -1,4 +1,5 @@
 const propertyQueries = require("../db/queries.properties.js");
+const propertyFields = require("../support/modelDefinitions/propertySource").getFields();
 
 module.exports = {
     create(req, res, next) {

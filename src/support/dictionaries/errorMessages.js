@@ -1,5 +1,5 @@
 module.exports = {
-    getUserValidationMessages() {
+    getUserCreationErrorMessages() {
         return {
             emailIsNull: "Email cannot be null.",
             emailIsInvalid: "Email must be a valid address.",
@@ -34,6 +34,31 @@ module.exports = {
             canDeleteNewsItemCommentsIsNotBoolean: "Role (canDeleteNewsItemComments) must be a boolean.",
             canChangeRolesIsNotBoolean: "Role (canChangeRoles) must be a boolean."
         };
+    },
+    getUserSignInErrorMessages() {
+        return {
+            emailIsNotRegistered: "Account with that email doesn't exist.",
+            passwordIsIncorrect: "Incorrect password."
+        };
+    },
+    getPropertyCreationErrorMessages() {
+        return {
+            keyIsNull: "Key cannot be null.",
+            keyIsNotUnique: "Property with that key already exists.",
+            valueIsNull: "Value cannot be null.",
+            whichUserCreatedEmailIsNull: "Email signifying creating user cannot be null.",
+            whichUserCreatedEmailIsInvalid: "Email signifying creating user must be a valid address.",
+            whichUserLastChangedEmailIsNull: "Email signifying changing user cannot be null.",
+            whichUserLastChangedEmailIsInvalid: "Email signifying changing user must be a valid address."
+        }
+    },
+    getPropertyUpdateErrorMessages() {
+        return {
+            keyDoesNotExist: "Property with that key doesn't exist.",
+            userDoesNotExist: "User with that email doesn't exist.",
+            userCannotChangeProperties: "User with that email lacks permission to change properties."
+
+        }
     },
     getServingSummaryValidationMessages() {
         return {

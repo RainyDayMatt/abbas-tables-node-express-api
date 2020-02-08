@@ -1,40 +1,25 @@
 const User = require("./models/").User;
+
+const errorMessages = require("../support/dictionaries/errorMessages");
+
 const bcrypt = require("bcryptjs");
 
 module.exports = {
     checkUserEmailAvailability(email, callback) {
-        User.findAll({where: { email }})
+        User.findAll({ where: { email } })
             .then((users) => {
                 if (users.length > 0) {
                     callback("Account with that email already exists.");
                 } else {
                     callback(null);
                 }
-            })
+            });
     },
     createUser(newUser, callback) {
         const salt = bcrypt.genSaltSync();
         const hashedPassword = bcrypt.hashSync(newUser.password, salt);
-        return User.create({
-            email: newUser.email,
-            password: hashedPassword,
-            firstName: newUser.firstName,
-            lastName: newUser.lastName,
-            mobilePhone: newUser.mobilePhone,
-            homePhone: newUser.homePhone,
-            workPhone: newUser.workPhone,
-            otherPhone: newUser.otherPhone,
-            preferredContactMethod: newUser.preferredContactMethod,
-            canEnterMealCount: newUser.canEnterMealCount,
-            canChangeProps: newUser.canChangeProps,
-            canCreateNewsItems: newUser.canCreateNewsItems,
-            canEditNewsItems: newUser.canEditNewsItems,
-            canDeleteNewsItems: newUser.canDeleteNewsItems,
-            canCreateNewsItemComments: newUser.canCreateNewsItemComments,
-            canEditNewsItemComments: newUser.canEditNewsItemComments,
-            canDeleteNewsItemComments: newUser.canDeleteNewsItemComments,
-            canChangeRoles: newUser.canChangeRoles
-        })
+        newUser.password = hashedPassword;
+        return User.create(newUser)
             .then((user) => {
                 callback(null, user);
             })
@@ -43,15 +28,14 @@ module.exports = {
             });
     },
     getUserLazy(user, callback) {
-        User.findOne({where: {email: user.email}})
+        User.findOne({ where: { email: user.email } })
             .then((returnedUser) => {
                 if (!returnedUser) {
-                    callback("Account with that email doesn't exist.")
-                }
-                else if (bcrypt.compareSync(user.password, returnedUser.password)) {
+                    callback(errorMessages.getUserSignInErrorMessages().emailIsNotRegistered)
+                } else if (bcrypt.compareSync(user.password, returnedUser.password)) {
                     callback(null, returnedUser);
                 } else {
-                    callback("Incorrect password.");
+                    callback(errorMessages.getUserSignInErrorMessages().passwordIsIncorrect);
                 }
             })
             .catch((err) => {

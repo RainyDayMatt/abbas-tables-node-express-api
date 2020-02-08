@@ -5,8 +5,7 @@ module.exports = {
         userQueries.checkUserEmailAvailability(req.body.email, (message) => {
             if (message) {
                 return res.status(400).json({ err: [message] });
-            }
-            else {
+            } else {
                 return next();
             }
         });

@@ -1,6 +1,6 @@
 module.exports = {
     getDefinition(types) {
-        const validationMessages = require("../../support/dictionary").getUserValidationMessages();
+        const validationMessages = require("../dictionaries/errorMessages").getUserCreationErrorMessages();
         return {
             email: {
                 allowNull: false,
@@ -182,5 +182,26 @@ module.exports = {
                 }
             }
         };
+    },
+    getFields() {
+        return [
+            "email",
+            "password",
+            "firstName",
+            "lastName",
+            "mobilePhone",
+            "homePhone",
+            "workPhone",
+            "otherPhone",
+            "canEnterMealCount",
+            "canChangeProps",
+            "canCreateNewsItems",
+            "canEditNewsItems",
+            "canDeleteNewsItems",
+            "canCreateNewsItemComments",
+            "canEditNewsItemComments",
+            "canDeleteNewsItemComments",
+            "canChangeRoles"
+        ];
     }
 };

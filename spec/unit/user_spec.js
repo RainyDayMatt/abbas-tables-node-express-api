@@ -1,7 +1,7 @@
 const sequelize = require("../../src/db/models/index").sequelize;
 const User = require("../../src/db/models").User;
 
-const validationMessages = require("../../src/support/dictionary").getUserValidationMessages();
+const validationMessages = require("../../src/support/dictionaries/errorMessages").getUserCreationErrorMessages();
 
 describe("User", () => {
     beforeEach((done) => {

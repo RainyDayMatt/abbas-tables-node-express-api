@@ -1,7 +1,7 @@
 const sequelize = require("../../src/db/models/index").sequelize;
 const ServingSummary = require("../../src/db/models").ServingSummary;
 
-const validationMessages = require("../../src/support/dictionary").getServingSummaryValidationMessages();
+const validationMessages = require("../../src/support/dictionaries/errorMessages").getServingSummaryValidationMessages();
 
 describe("ServingSummary", () => {
     beforeEach((done) => {
@@ -184,6 +184,76 @@ describe("ServingSummary", () => {
                 .catch((err) => {
                     expect(err.errors.length).toEqual(1);
                     expect(err.errors[0].message).toContain(validationMessages.childGuestMealsIsNotNumeric);
+                });
+        });
+        it("Should not create a ServingSummary object with a null volunteer meal count.", () => {
+            this.servingSummaryCreationOptions.volunteerMeals = null;
+            ServingSummary.create(this.servingSummaryCreationOptions)
+                .then((servingsummary) => {
+                    fail("Validation failed to catch: null volunteer meal count.")
+                })
+                .catch((err) => {
+                    expect(err.errors.length).toEqual(1);
+                    expect(err.errors[0].message).toContain("ServingSummary.volunteerMeals cannot be null");
+                });
+        });
+        it("Should not create a ServingSummary object with an invalid volunteer meal count.", () => {
+            this.servingSummaryCreationOptions.volunteerMeals = "T3st";
+            ServingSummary.create(this.servingSummaryCreationOptions)
+                .then((servingsummary) => {
+                    fail("Validation failed to catch: invalid volunteer meal count.")
+                })
+                .catch((err) => {
+                    expect(err.errors.length).toEqual(1);
+                    expect(err.errors[0].message).toContain(validationMessages.volunteerMealsIsNotNumeric);
+                });
+        });
+        it("Should not create a ServingSummary object with a null creating user value.", (done) => {
+            this.servingSummaryCreationOptions.whichUserCreated = null;
+            ServingSummary.create(this.servingSummaryCreationOptions)
+                .then((servingsummary) => {
+                    fail("Validation failed to catch: null creating user value.");
+                    done();
+                })
+                .catch((err) => {
+                    expect(err.message).toContain("ServingSummary.whichUserCreated cannot be null");
+                    done();
+                });
+        });
+        it("Should not create a ServingSummary object with a null last changing user value.", (done) => {
+            this.servingSummaryCreationOptions.whichUserLastChanged = null;
+            ServingSummary.create(this.servingSummaryCreationOptions)
+                .then((servingsummary) => {
+                    fail("Validation failed to catch: null last changing user value.");
+                    done();
+                })
+                .catch((err) => {
+                    expect(err.message).toContain("ServingSummary.whichUserLastChanged cannot be null");
+                    done();
+                });
+        });
+        it("Should not create a ServingSummary object with a null incident flag value.", (done) => {
+            this.servingSummaryCreationOptions.hadIncident = null;
+            ServingSummary.create(this.servingSummaryCreationOptions)
+                .then((servingsummary) => {
+                    fail("Validation failed to catch: null incident flag value.");
+                    done();
+                })
+                .catch((err) => {
+                    expect(err.message).toContain("ServingSummary.hadIncident cannot be null");
+                    done();
+                });
+        });
+        it("Should not create a ServingSummary object with an invalid incident flag value.", (done) => {
+            this.servingSummaryCreationOptions.hadIncident = "T3st";
+            ServingSummary.create(this.servingSummaryCreationOptions)
+                .then((servingsummary) => {
+                    fail("Validation failed to catch: invalid incident flag value.");
+                    done();
+                })
+                .catch((err) => {
+                    expect(err.message).toContain(validationMessages.hadIncidentIsNotBoolean);
+                    done();
                 });
         });
     });

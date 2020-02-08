@@ -1,6 +1,6 @@
 module.exports = {
     getDefinition(types) {
-        const validationMessages = require("../../support/dictionary").getServingSummaryValidationMessages();
+        const validationMessages = require("../dictionaries/errorMessages").getServingSummaryValidationMessages();
         return {
             year: {
                 allowNull: false,
@@ -96,5 +96,20 @@ module.exports = {
                 }
             }
         };
+    },
+    getFields() {
+        return [
+            "year",
+            "month",
+            "day",
+            "totalMeals",
+            "adultGuestMeals",
+            "childGuestMeals",
+            "volunteerMeals",
+            "whichUserCreated",
+            "whichUserLastChanged",
+            "notes",
+            "hadIncident"
+        ];
     }
 };

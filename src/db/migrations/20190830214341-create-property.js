@@ -1,41 +1,24 @@
 'use strict';
 module.exports = {
-  up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('Properties', {
-      id: {
-        allowNull: false,
-        autoIncrement: true,
-        primaryKey: true,
-        type: Sequelize.INTEGER
-      },
-      key: {
-        allowNull: false,
-        unique: true,
-        type: Sequelize.STRING
-      },
-      value: {
-        allowNull: false,
-        type: Sequelize.STRING
-      },
-      whichUserCreated: {
-        allowNull: false,
-        type: Sequelize.STRING
-      },
-      whichUserLastChanged: {
-        allowNull: false,
-        type: Sequelize.STRING
-      },
-      createdAt: {
-        allowNull: false,
-        type: Sequelize.DATE
-      },
-      updatedAt: {
-        allowNull: false,
-        type: Sequelize.DATE
-      }
-    });
-  },
-  down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('Properties');
-  }
+    up: (queryInterface, Sequelize) => {
+        const propertySource = require("../../support/modelDefinitions/propertySource").getDefinition(Sequelize);
+        propertySource.id = {
+            allowNull: false,
+            autoIncrement: true,
+            primaryKey: true,
+            type: Sequelize.INTEGER
+        };
+        propertySource.createdAt = {
+            allowNull: false,
+            type: Sequelize.DATE
+        };
+        propertySource.updatedAt = {
+            allowNull: false,
+            type: Sequelize.DATE
+        };
+        return queryInterface.createTable('Properties', propertySource);
+    },
+    down: (queryInterface, Sequelize) => {
+        return queryInterface.dropTable('Properties');
+    }
 };
