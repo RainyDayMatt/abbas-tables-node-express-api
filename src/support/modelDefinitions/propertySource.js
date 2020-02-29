@@ -1,6 +1,6 @@
 module.exports = {
     getDefinition(types) {
-        const validationMessages = require("../dictionaries/errorMessages").getPropertyCreationErrorMessages();
+        const errorMessages = require("../dictionaries/errorMessages").getPropertyCreationErrorMessages();
         return {
             key: {
                 allowNull: false,
@@ -16,7 +16,7 @@ module.exports = {
                 type: types.STRING,
                 validate: {
                     isEmail: {
-                        msg: validationMessages.whichUserCreatedEmailIsInvalid
+                        msg: errorMessages.whichUserCreatedEmailIsInvalid
                     }
                 }
             },
@@ -25,7 +25,7 @@ module.exports = {
                 type: types.STRING,
                 validate: {
                     isEmail: {
-                        msg: validationMessages.whichUserCreatedEmailIsInvalid
+                        msg: errorMessages.whichUserCreatedEmailIsInvalid
                     }
                 }
             }

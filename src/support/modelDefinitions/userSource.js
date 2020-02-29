@@ -1,6 +1,6 @@
 module.exports = {
     getDefinition(types) {
-        const validationMessages = require("../dictionaries/errorMessages").getUserCreationErrorMessages();
+        const errorMessages = require("../dictionaries/errorMessages").getUserCreationErrorMessages();
         return {
             email: {
                 allowNull: false,
@@ -8,7 +8,7 @@ module.exports = {
                 type: types.STRING,
                 validate: {
                     isEmail: {
-                        msg: validationMessages.emailIsInvalid
+                        msg: errorMessages.emailIsInvalid
                     }
                 }
             },
@@ -21,12 +21,12 @@ module.exports = {
                 type: types.STRING,
                 validate: {
                     isAlpha: {
-                        msg: validationMessages.firstNameIsNotAlphabetic
+                        msg: errorMessages.firstNameIsNotAlphabetic
                     },
                     isLength: {
                         min: 2,
                         max: 20,
-                        msg: validationMessages.firstNameLengthIsInvalid
+                        msg: errorMessages.firstNameLengthIsInvalid
                     }
                 }
             },
@@ -35,12 +35,12 @@ module.exports = {
                 type: types.STRING,
                 validate: {
                     isAlpha: {
-                        msg: validationMessages.lastNameIsNotAlphabetic
+                        msg: errorMessages.lastNameIsNotAlphabetic
                     },
                     isLength: {
                         min: 2,
                         max: 20,
-                        msg: validationMessages.lastNameLengthIsInvalid
+                        msg: errorMessages.lastNameLengthIsInvalid
                     }
                 }
             },
@@ -51,10 +51,10 @@ module.exports = {
                     isLength: {
                         min: 10,
                         max: 10,
-                        msg: validationMessages.mobilePhoneLengthIsInvalid
+                        msg: errorMessages.mobilePhoneLengthIsInvalid
                     },
                     isNumeric: {
-                        msg: validationMessages.mobilePhoneIsNotNumeric
+                        msg: errorMessages.mobilePhoneIsNotNumeric
                     }
                 }
             },
@@ -65,10 +65,10 @@ module.exports = {
                     isLength: {
                         min: 10,
                         max: 10,
-                        msg: validationMessages.homePhoneLengthIsInvalid
+                        msg: errorMessages.homePhoneLengthIsInvalid
                     },
                     isNumeric: {
-                        msg: validationMessages.homePhoneIsNotNumeric
+                        msg: errorMessages.homePhoneIsNotNumeric
                     }
                 }
             },
@@ -79,10 +79,10 @@ module.exports = {
                     isLength: {
                         min: 10,
                         max: 10,
-                        msg: validationMessages.workPhoneLengthIsInvalid
+                        msg: errorMessages.workPhoneLengthIsInvalid
                     },
                     isNumeric: {
-                        msg: validationMessages.workPhoneIsNotNumeric
+                        msg: errorMessages.workPhoneIsNotNumeric
                     }
                 }
             },
@@ -93,10 +93,10 @@ module.exports = {
                     isLength: {
                         min: 10,
                         max: 10,
-                        msg: validationMessages.otherPhoneLengthIsInvalid
+                        msg: errorMessages.otherPhoneLengthIsInvalid
                     },
                     isNumeric: {
-                        msg: validationMessages.otherPhoneIsNotNumeric
+                        msg: errorMessages.otherPhoneIsNotNumeric
                     }
                 }
             },
@@ -105,7 +105,7 @@ module.exports = {
                 type: types.BOOLEAN,
                 validate: {
                     isBoolean: {
-                        msg: validationMessages.canEnterMealCountIsNotBoolean
+                        msg: errorMessages.canEnterMealCountIsNotBoolean
                     }
                 }
             },
@@ -114,7 +114,7 @@ module.exports = {
                 type: types.BOOLEAN,
                 validate: {
                     isBoolean: {
-                        msg: validationMessages.canChangePropsIsNotBoolean
+                        msg: errorMessages.canChangePropsIsNotBoolean
                     }
                 }
             },
@@ -123,7 +123,7 @@ module.exports = {
                 type: types.BOOLEAN,
                 validate: {
                     isBoolean: {
-                        msg: validationMessages.canCreateNewsItemsIsNotBoolean
+                        msg: errorMessages.canCreateNewsItemsIsNotBoolean
                     }
                 }
             },
@@ -132,7 +132,7 @@ module.exports = {
                 type: types.BOOLEAN,
                 validate: {
                     isBoolean: {
-                        msg: validationMessages.canEditNewsItemsIsNotBoolean
+                        msg: errorMessages.canEditNewsItemsIsNotBoolean
                     }
                 }
             },
@@ -141,7 +141,7 @@ module.exports = {
                 type: types.BOOLEAN,
                 validate: {
                     isBoolean: {
-                        msg: validationMessages.canDeleteNewsItemsIsNotBoolean
+                        msg: errorMessages.canDeleteNewsItemsIsNotBoolean
                     }
                 }
             },
@@ -150,7 +150,7 @@ module.exports = {
                 type: types.BOOLEAN,
                 validate: {
                     isBoolean: {
-                        msg: validationMessages.canCreateNewsItemCommentsIsNotBoolean
+                        msg: errorMessages.canCreateNewsItemCommentsIsNotBoolean
                     }
                 }
             },
@@ -159,7 +159,7 @@ module.exports = {
                 type: types.BOOLEAN,
                 validate: {
                     isBoolean: {
-                        msg: validationMessages.canEditNewsItemCommentsIsNotBoolean
+                        msg: errorMessages.canEditNewsItemCommentsIsNotBoolean
                     }
                 }
             },
@@ -168,7 +168,7 @@ module.exports = {
                 type: types.BOOLEAN,
                 validate: {
                     isBoolean: {
-                        msg: validationMessages.canDeleteNewsItemCommentsIsNotBoolean
+                        msg: errorMessages.canDeleteNewsItemCommentsIsNotBoolean
                     }
                 }
             },
@@ -177,7 +177,7 @@ module.exports = {
                 type: types.BOOLEAN,
                 validate: {
                     isBoolean: {
-                        msg: validationMessages.canChangeRolesIsNotBoolean
+                        msg: errorMessages.canChangeRolesIsNotBoolean
                     }
                 }
             }

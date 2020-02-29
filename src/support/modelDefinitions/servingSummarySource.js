@@ -1,13 +1,13 @@
 module.exports = {
     getDefinition(types) {
-        const validationMessages = require("../dictionaries/errorMessages").getServingSummaryValidationMessages();
+        const errorMessages = require("../dictionaries/errorMessages").getServingSummaryCreationErrorMessages();
         return {
             year: {
                 allowNull: false,
                 type: types.INTEGER,
                 validate: {
                     isNumeric: {
-                        msg: validationMessages.yearIsNotNumeric
+                        msg: errorMessages.yearIsNotNumeric
                     }
                 }
             },
@@ -16,7 +16,7 @@ module.exports = {
                 type: types.INTEGER,
                 validate: {
                     isNumeric: {
-                        msg: validationMessages.monthIsNotNumeric
+                        msg: errorMessages.monthIsNotNumeric
                     }
                 }
             },
@@ -25,7 +25,7 @@ module.exports = {
                 type: types.INTEGER,
                 validate: {
                     isNumeric: {
-                        msg: validationMessages.dayIsNotNumeric
+                        msg: errorMessages.dayIsNotNumeric
                     }
                 }
             },
@@ -34,7 +34,7 @@ module.exports = {
                 type: types.INTEGER,
                 validate: {
                     isNumeric: {
-                        msg: validationMessages.totalMealsIsNotNumeric
+                        msg: errorMessages.totalMealsIsNotNumeric
                     }
                 }
             },
@@ -43,7 +43,7 @@ module.exports = {
                 type: types.INTEGER,
                 validate: {
                     isNumeric: {
-                        msg: validationMessages.adultGuestMealsIsNotNumeric
+                        msg: errorMessages.adultGuestMealsIsNotNumeric
                     }
                 }
             },
@@ -52,7 +52,7 @@ module.exports = {
                 type: types.INTEGER,
                 validate: {
                     isNumeric: {
-                        msg: validationMessages.childGuestMealsIsNotNumeric
+                        msg: errorMessages.childGuestMealsIsNotNumeric
                     }
                 }
             },
@@ -61,7 +61,7 @@ module.exports = {
                 type: types.INTEGER,
                 validate: {
                     isNumeric: {
-                        msg: validationMessages.volunteerMealsIsNotNumeric
+                        msg: errorMessages.volunteerMealsIsNotNumeric
                     }
                 }
             },
@@ -70,7 +70,7 @@ module.exports = {
                 type: types.STRING,
                 validate: {
                     isEmail: {
-                        msg: validationMessages.whichUserCreatedEmailIsInvalid
+                        msg: errorMessages.whichUserCreatedEmailIsInvalid
                     }
                 }
             },
@@ -79,7 +79,7 @@ module.exports = {
                 type: types.STRING,
                 validate: {
                     isEmail: {
-                        msg: validationMessages.whichUserLastChangedEmailIsInvalid
+                        msg: errorMessages.whichUserLastChangedEmailIsInvalid
                     }
                 }
             },
@@ -91,7 +91,7 @@ module.exports = {
                 type: types.BOOLEAN,
                 validate: {
                     isBoolean: {
-                        msg: validationMessages.hadIncidentIsNotBoolean
+                        msg: errorMessages.hadIncidentIsNotBoolean
                     }
                 }
             }

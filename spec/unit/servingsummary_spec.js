@@ -1,7 +1,7 @@
 const sequelize = require("../../src/db/models/index").sequelize;
 const ServingSummary = require("../../src/db/models").ServingSummary;
 
-const validationMessages = require("../../src/support/dictionaries/errorMessages").getServingSummaryValidationMessages();
+const errorMessages = require("../../src/support/dictionaries/errorMessages").getServingSummaryCreationErrorMessages();
 
 describe("ServingSummary", () => {
     beforeEach((done) => {
@@ -73,7 +73,7 @@ describe("ServingSummary", () => {
                 })
                 .catch((err) => {
                     expect(err.errors.length).toEqual(1);
-                    expect(err.errors[0].message).toContain(validationMessages.yearIsNotNumeric);
+                    expect(err.errors[0].message).toContain(errorMessages.yearIsNotNumeric);
                 });
         });
         it("Should not create a ServingSummary object with a null month.", () => {
@@ -95,7 +95,7 @@ describe("ServingSummary", () => {
                 })
                 .catch((err) => {
                     expect(err.errors.length).toEqual(1);
-                    expect(err.errors[0].message).toContain(validationMessages.monthIsNotNumeric);
+                    expect(err.errors[0].message).toContain(errorMessages.monthIsNotNumeric);
                 });
         });
         it("Should not create a ServingSummary object with a null day.", () => {
@@ -117,7 +117,7 @@ describe("ServingSummary", () => {
                 })
                 .catch((err) => {
                     expect(err.errors.length).toEqual(1);
-                    expect(err.errors[0].message).toContain(validationMessages.dayIsNotNumeric);
+                    expect(err.errors[0].message).toContain(errorMessages.dayIsNotNumeric);
                 });
         });
         it("Should not create a ServingSummary object with a null total meal count.", () => {
@@ -139,7 +139,7 @@ describe("ServingSummary", () => {
                 })
                 .catch((err) => {
                     expect(err.errors.length).toEqual(1);
-                    expect(err.errors[0].message).toContain(validationMessages.totalMealsIsNotNumeric);
+                    expect(err.errors[0].message).toContain(errorMessages.totalMealsIsNotNumeric);
                 });
         });
         it("Should not create a ServingSummary object with a null adult guest meal count.", () => {
@@ -161,7 +161,7 @@ describe("ServingSummary", () => {
                 })
                 .catch((err) => {
                     expect(err.errors.length).toEqual(1);
-                    expect(err.errors[0].message).toContain(validationMessages.adultGuestMealsIsNotNumeric);
+                    expect(err.errors[0].message).toContain(errorMessages.adultGuestMealsIsNotNumeric);
                 });
         });
         it("Should not create a ServingSummary object with a null child guest meal count.", () => {
@@ -183,7 +183,7 @@ describe("ServingSummary", () => {
                 })
                 .catch((err) => {
                     expect(err.errors.length).toEqual(1);
-                    expect(err.errors[0].message).toContain(validationMessages.childGuestMealsIsNotNumeric);
+                    expect(err.errors[0].message).toContain(errorMessages.childGuestMealsIsNotNumeric);
                 });
         });
         it("Should not create a ServingSummary object with a null volunteer meal count.", () => {
@@ -205,7 +205,7 @@ describe("ServingSummary", () => {
                 })
                 .catch((err) => {
                     expect(err.errors.length).toEqual(1);
-                    expect(err.errors[0].message).toContain(validationMessages.volunteerMealsIsNotNumeric);
+                    expect(err.errors[0].message).toContain(errorMessages.volunteerMealsIsNotNumeric);
                 });
         });
         it("Should not create a ServingSummary object with a null creating user value.", (done) => {
@@ -252,7 +252,7 @@ describe("ServingSummary", () => {
                     done();
                 })
                 .catch((err) => {
-                    expect(err.message).toContain(validationMessages.hadIncidentIsNotBoolean);
+                    expect(err.message).toContain(errorMessages.hadIncidentIsNotBoolean);
                     done();
                 });
         });

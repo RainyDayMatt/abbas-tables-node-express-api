@@ -9,7 +9,7 @@ module.exports = {
         User.findAll({ where: { email } })
             .then((users) => {
                 if (users.length > 0) {
-                    callback("Account with that email already exists.");
+                    callback(errorMessages.getUserCreationErrorMessages().emailIsNotUnique);
                 } else {
                     callback(null);
                 }
@@ -24,22 +24,22 @@ module.exports = {
                 callback(null, user);
             })
             .catch((err) => {
-                callback(err);
+                callback([ err ]);
             });
     },
     getUserLazy(user, callback) {
         User.findOne({ where: { email: user.email } })
             .then((returnedUser) => {
                 if (!returnedUser) {
-                    callback(errorMessages.getUserSignInErrorMessages().emailIsNotRegistered)
+                    callback([ errorMessages.getUserSignInErrorMessages().emailIsNotRegistered ])
                 } else if (bcrypt.compareSync(user.password, returnedUser.password)) {
                     callback(null, returnedUser);
                 } else {
-                    callback(errorMessages.getUserSignInErrorMessages().passwordIsIncorrect);
+                    callback([ errorMessages.getUserSignInErrorMessages().passwordIsIncorrect ]);
                 }
             })
             .catch((err) => {
-                callback(err);
+                callback([ err ]);
             });
     }
 };

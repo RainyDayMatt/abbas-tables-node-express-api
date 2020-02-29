@@ -1,22 +1,34 @@
 const ServingSummary = require("./models/").ServingSummary;
 const User = require("./models/").User;
 
+const errorMessages = require("../support/dictionaries/errorMessages");
+
 module.exports = {
-    createServingSummary(newServingSummary, callback) {
-        return User.findOne({ where: { email: newServingSummary.whichUserCreated } })
+    checkServingSummaryDateAvailability(year, month, day, callback) {
+        return ServingSummary.findAll({ where: { year: year, month: month, day: day } })
+            .then((servingSummaries) => {
+                if (servingSummaries.length > 0) {
+                    callback(errorMessages.getServingSummaryCreationErrorMessages().dateIsNotUnique);
+                } else {
+                    callback(null);
+                }
+            });
+    },
+    createServingSummary(newServingSummary, creatingUserEmail, callback) {
+        return User.findOne({ where: { email: creatingUserEmail } })
             .then((user) => {
                 if (!user) {
-                    callback("User with that email doesn't exist.");
+                    callback([ errorMessages.getServingSummaryCreationErrorMessages().userDoesNotExist ]);
                 } else {
                     if (!user.canEnterMealCount) {
-                        callback("User with that email lacks permission to enter meal counts.");
+                        callback([ errorMessages.getServingSummaryCreationErrorMessages().userCannotEnterMealCounts ]);
                     } else {
                         ServingSummary.create(newServingSummary)
                             .then((servingSummary) => {
                                 callback(null, servingSummary);
                             })
                             .catch((err) => {
-                                callback(err);
+                                callback([ err ]);
                             });
                     }
                 }
@@ -26,28 +38,28 @@ module.exports = {
         return ServingSummary.findOne({ where: { year: year, month: month, day: day } })
             .then((servingSummary) => {
                 if (!servingSummary) {
-                    callback("Serving summary with that date doesn't exist.");
+                    callback([ errorMessages.getServingSummaryUpdateErrorMessages().dateDoesNotExist ]);
                 } else {
                     callback(null, servingSummary);
                 }
             })
             .catch((err) => {
-                callback(err);
+                callback([ err ]);
             });
     },
     updateServingSummary(year, month, day, updatedServingSummary, updatingUserEmail, callback) {
         return ServingSummary.findOne({ where: { year: year, month: month, day: day } })
             .then((servingSummary) => {
                 if (!servingSummary) {
-                    callback("Serving summary with that date doesn't exist.");
+                    callback([ errorMessages.getServingSummaryUpdateErrorMessages().dateDoesNotExist ]);
                 } else {
                     User.findOne({ where: { email: updatingUserEmail } })
                         .then((user) => {
                             if (!user) {
-                                callback("User with that email doesn't exist.");
+                                callback([ errorMessages.getServingSummaryUpdateErrorMessages().userDoesNotExist ]);
                             } else {
                                 if (!user.canEnterMealCount) {
-                                    callback("User with that email lacks permission to enter meal counts.");
+                                    callback([ errorMessages.getServingSummaryUpdateErrorMessages().userCannotEnterMealCounts ]);
                                 } else {
                                     servingSummary.update(updatedServingSummary, {
                                         fields: Object.keys(updatedServingSummary)

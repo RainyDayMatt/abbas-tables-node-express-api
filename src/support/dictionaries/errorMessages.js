@@ -57,11 +57,11 @@ module.exports = {
             keyDoesNotExist: "Property with that key doesn't exist.",
             userDoesNotExist: "User with that email doesn't exist.",
             userCannotChangeProperties: "User with that email lacks permission to change properties."
-
         }
     },
-    getServingSummaryValidationMessages() {
+    getServingSummaryCreationErrorMessages() {
         return {
+            dateIsNotUnique: "Summary date already exists.",
             yearIsNull: "Year cannot be null.",
             yearIsNotNumeric: "Year must consist only of numbers.",
             monthIsNull: "Month cannot be null.",
@@ -76,12 +76,21 @@ module.exports = {
             childGuestMealsIsNotNumeric: "Child guest meals must consist only of numbers.",
             volunteerMealsIsNull: "Volunteer meals cannot be null.",
             volunteerMealsIsNotNumeric: "Volunteer meals must consist only of numbers.",
+            userDoesNotExist: "User with that email doesn't exist.",
+            userCannotEnterMealCounts: "User with that email lacks permission to enter meal counts.",
             whichUserCreatedEmailIsNull: "Email signifying creating user cannot be null.",
             whichUserCreatedEmailIsInvalid: "Email signifying creating user must be a valid address.",
             whichUserLastChangedEmailIsNull: "Email signifying changing user cannot be null.",
             whichUserLastChangedEmailIsInvalid: "Email signifying changing user must be a valid address.",
             hadIncidentIsNull: "Incident flag cannot be null.",
             hadIncidentIsNotBoolean: "Incident flag must be boolean."
+        }
+    },
+    getServingSummaryUpdateErrorMessages() {
+        return {
+            dateDoesNotExist: "ServingSummary with that date doesn't exist.",
+            userDoesNotExist: "User with that email doesn't exist.",
+            userCannotEnterMealCounts: "User with that email lacks permission to change properties."
         }
     }
 };

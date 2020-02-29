@@ -3,7 +3,7 @@ const servingSummaryFields = require("../support/modelDefinitions/servingSummary
 
 module.exports = {
     create(req, res, next) {
-        servingSummaryQueries.createServingSummary(req.body, (err, servingSummary) => {
+        servingSummaryQueries.createServingSummary(req.body, req.body.whichUserCreated, (err, servingSummary) => {
             if (err) {
                 res.status(400).json({ err: err });
             } else {
@@ -21,7 +21,7 @@ module.exports = {
         });
     },
     update(req, res, next) {
-        servingSummaryQueries.updateServingSummary(req.params.year, req.params.month, req.params.day, req.body.updatedServingSummary, req.body.changingUser, (err, servingSummary) => {
+        servingSummaryQueries.updateServingSummary(req.params.year, req.params.month, req.params.day, req.body.updatedServingSummary, req.body.whichUserLastChanged, (err, servingSummary) => {
             if (err) {
                 res.status(400).json({ err: err });
             } else {

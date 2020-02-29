@@ -476,7 +476,8 @@ describe("routes : users", () => {
             this.userSignInOptions.form.password = "M1nerals23";
             request.post(this.userSignInOptions,
                 (err, res, body) => {
-                    expect(JSON.parse(body).err).toBe(errorMessages.getUserSignInErrorMessages().passwordIsIncorrect);
+                    expect(JSON.parse(body).err.length).toBe(1);
+                    expect(JSON.parse(body).err[0]).toBe(errorMessages.getUserSignInErrorMessages().passwordIsIncorrect);
                     done();
                 }
             );
@@ -485,7 +486,8 @@ describe("routes : users", () => {
             this.userSignInOptions.form.email = "shepard@n7.edu";
             request.post(this.userSignInOptions,
                 (err, res, body) => {
-                    expect(JSON.parse(body).err).toBe(errorMessages.getUserSignInErrorMessages().emailIsNotRegistered);
+                    expect(JSON.parse(body).err.length).toBe(1);
+                    expect(JSON.parse(body).err[0]).toBe(errorMessages.getUserSignInErrorMessages().emailIsNotRegistered);
                     done();
                 }
             );

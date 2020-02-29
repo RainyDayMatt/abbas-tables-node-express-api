@@ -122,7 +122,7 @@ describe("routes : properties", () => {
                 });
         });
         it("Should return the associated Property object when the correct key is supplied.", (done) => {
-            request.get(`${base}${this.newProperty.key}`,
+            request.get(`${ base }${ this.newProperty.key }`,
                 (err, res, body) => {
                     expect(JSON.parse(body).property.value).toEqual(this.newProperty.value);
                     done();
@@ -130,16 +130,17 @@ describe("routes : properties", () => {
             );
         });
         it("Should return the appropriate error when a nonexistent key is supplied.", (done) => {
-            request.get(`${base}bestCollegeFootballTeam`,
+            request.get(`${ base }bestCollegeFootballTeam`,
                 (err, res, body) => {
-                    expect(JSON.parse(body).err).toBe(errorMessages.getPropertyUpdateErrorMessages().keyDoesNotExist);
+                    expect(JSON.parse(body).err.length).toBe(1);
+                    expect(JSON.parse(body).err[0]).toBe(errorMessages.getPropertyUpdateErrorMessages().keyDoesNotExist);
                     done();
                 }
             );
         });
     });
 
-    describe("POST /properties/:key/update", () => {
+    describe("PATCH /properties/:key", () => {
         beforeEach((done) => {
             this.propertyUpdateUser = userFactory.get();
             this.propertyUpdateUser.canChangeProps = true;
@@ -152,20 +153,20 @@ describe("routes : properties", () => {
                     done();
                 });
             this.propertyUpdateOptions = {
-                url: `${base}${this.newProperty.key}/update`,
+                url: `${ base }${ this.newProperty.key }`,
                 form: {
-                    changingUser: this.propertyUpdateUser.email,
                     updatedProperty: {
-                        key: "bestDessert",
+                        key: this.newProperty.key,
                         value: "Raspberry Crunch Cake"
-                    }
+                    },
+                    whichUserLastChanged: this.propertyUpdateUser.email
                 }
             };
         });
         it("Should return the updated Property object when the update endpoint is provided with acceptable field values.", (done) => {
             User.create(this.propertyUpdateUser)
                 .then((user) => {
-                    request.post(this.propertyUpdateOptions,
+                    request.patch(this.propertyUpdateOptions,
                         (err, res, body) => {
                             expect(JSON.parse(body).property.value).toEqual(this.propertyUpdateOptions.form.updatedProperty.value);
                             done();
@@ -178,18 +179,20 @@ describe("routes : properties", () => {
                 });
         });
         it("Should return the appropriate error when a nonexistent key is supplied.", (done) => {
-            this.propertyUpdateOptions.url = `${base}bestCollegeFootballTeam/update`;
-            request.post(this.propertyUpdateOptions,
+            this.propertyUpdateOptions.url = `${ base }bestCollegeFootballTeam`;
+            request.patch(this.propertyUpdateOptions,
                 (err, res, body) => {
-                    expect(JSON.parse(body).err).toBe(errorMessages.getPropertyUpdateErrorMessages().keyDoesNotExist);
+                    expect(JSON.parse(body).err.length).toBe(1);
+                    expect(JSON.parse(body).err[0]).toBe(errorMessages.getPropertyUpdateErrorMessages().keyDoesNotExist);
                     done();
                 }
             );
         });
         it("Should return the appropriate error when an unregistered user email is supplied.", (done) => {
-            request.post(this.propertyUpdateOptions,
+            request.patch(this.propertyUpdateOptions,
                 (err, res, body) => {
-                    expect(JSON.parse(body).err).toBe(errorMessages.getPropertyUpdateErrorMessages().userDoesNotExist);
+                    expect(JSON.parse(body).err.length).toBe(1);
+                    expect(JSON.parse(body).err[0]).toBe(errorMessages.getPropertyUpdateErrorMessages().userDoesNotExist);
                     done();
                 }
             );
@@ -198,15 +201,91 @@ describe("routes : properties", () => {
             this.propertyUpdateUser.canChangeProps = false;
             User.create(this.propertyUpdateUser)
                 .then((user) => {
-                    request.post(this.propertyUpdateOptions,
+                    request.patch(this.propertyUpdateOptions,
                         (err, res, body) => {
-                            expect(JSON.parse(body).err).toBe(errorMessages.getPropertyUpdateErrorMessages().userCannotChangeProperties);
+                            expect(JSON.parse(body).err.length).toBe(1);
+                            expect(JSON.parse(body).err[0]).toBe(errorMessages.getPropertyUpdateErrorMessages().userCannotChangeProperties);
                             done();
                         }
                     );
                 })
                 .catch((err) => {
                     fail("Error creating user for insufficient privileges update failure spec in Property integration test.");
+                    done();
+                });
+        });
+        it("Should not update a Property object if the supplied user email is invalid.", (done) => {
+            this.propertyUpdateOptions.form.whichUserLastChanged = "ShepardAtn7Dotgov";
+            User.create(this.propertyUpdateUser)
+                .then((user) => {
+                    request.patch(this.propertyUpdateOptions,
+                        (err, res, body) => {
+                            Property.findOne({ where: { key: this.propertyUpdateOptions.form.updatedProperty.key } })
+                                .then((property) => {
+                                    expect(property.value).toEqual(this.newProperty.value);
+                                    expect(JSON.parse(body).err.length).toBe(1);
+                                    expect(JSON.parse(body).err[0]).toBe(errorMessages.getPropertyCreationErrorMessages().whichUserLastChangedEmailIsInvalid);
+                                    done();
+                                })
+                                .catch((err) => {
+                                    console.log(err);
+                                    done();
+                                });
+                        }
+                    );
+                })
+                .catch((err) => {
+                    fail("Error creating user for invalid last changing user update failure spec in Property integration test.");
+                    done();
+                });
+        });
+        it("Should not update a Property object if the updated Property has an invalid creating user value.", (done) => {
+            this.propertyUpdateOptions.form.updatedProperty.whichUserCreated = "ShepardAtn7Dotgov";
+            User.create(this.propertyUpdateUser)
+                .then((user) => {
+                    request.patch(this.propertyUpdateOptions,
+                        (err, res, body) => {
+                            Property.findOne({ where: { key: this.propertyUpdateOptions.form.updatedProperty.key } })
+                                .then((property) => {
+                                    expect(property.value).toEqual(this.newProperty.value);
+                                    expect(JSON.parse(body).err.length).toBe(1);
+                                    expect(JSON.parse(body).err[0]).toBe(errorMessages.getPropertyCreationErrorMessages().whichUserCreatedEmailIsInvalid);
+                                    done();
+                                })
+                                .catch((err) => {
+                                    console.log(err);
+                                    done();
+                                });
+                        }
+                    );
+                })
+                .catch((err) => {
+                    fail("Error creating user for invalid creating user value update failure spec in Property integration test.");
+                    done();
+                });
+        });
+        it("Should not update a Property object if the updated Property has an invalid last changing user value.", (done) => {
+            this.propertyUpdateOptions.form.updatedProperty.whichUserLastChanged = "ShepardAtn7Dotgov";
+            User.create(this.propertyUpdateUser)
+                .then((user) => {
+                    request.patch(this.propertyUpdateOptions,
+                        (err, res, body) => {
+                            Property.findOne({ where: { key: this.propertyUpdateOptions.form.updatedProperty.key } })
+                                .then((property) => {
+                                    expect(property.value).toEqual(this.newProperty.value);
+                                    expect(JSON.parse(body).err.length).toBe(1);
+                                    expect(JSON.parse(body).err[0]).toBe(errorMessages.getPropertyCreationErrorMessages().whichUserLastChangedEmailIsInvalid);
+                                    done();
+                                })
+                                .catch((err) => {
+                                    console.log(err);
+                                    done();
+                                });
+                        }
+                    );
+                })
+                .catch((err) => {
+                    fail("Error creating user for invalid last changing user value update failure spec in Property integration test.");
                     done();
                 });
         });
