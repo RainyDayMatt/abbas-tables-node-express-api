@@ -1,24 +1,24 @@
 'use strict';
 module.exports = {
     up: (queryInterface, Sequelize) => {
-        const propertySource = require("../../support/modelDefinitions/propertySource").getDefinition(Sequelize);
-        propertySource.id = {
+        const servingSummarySource = require("../../support/modelDefinitions/servingSummarySource").getDefinition(Sequelize);
+        servingSummarySource.id = {
             allowNull: false,
             autoIncrement: true,
             primaryKey: true,
             type: Sequelize.INTEGER
         };
-        propertySource.createdAt = {
+        servingSummarySource.createdAt = {
             allowNull: false,
             type: Sequelize.DATE
         };
-        propertySource.updatedAt = {
+        servingSummarySource.updatedAt = {
             allowNull: false,
             type: Sequelize.DATE
         };
-        return queryInterface.createTable('Properties', propertySource);
+        return queryInterface.createTable('ServingSummaries', servingSummarySource);
     },
     down: (queryInterface, Sequelize) => {
-        return queryInterface.dropTable('Properties');
+        return queryInterface.dropTable('ServingSummaries');
     }
 };

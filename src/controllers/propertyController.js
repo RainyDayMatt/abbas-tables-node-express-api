@@ -1,4 +1,5 @@
 const propertyQueries = require("../db/queries.properties.js");
+const propertyFields = require("../support/modelDefinitions/propertySource").getFields();
 
 module.exports = {
     create(req, res, next) {
@@ -20,7 +21,7 @@ module.exports = {
         });
     },
     update(req, res, next) {
-        propertyQueries.updateProperty(req.params.key, req.body.updatedProperty, req.body.changingUser, (err, property) => {
+        propertyQueries.updateProperty(req.params.key, req.body.updatedProperty, req.body.whichUserLastChanged, (err, property) => {
             if (err) {
                 res.status(400).json({ err: err });
             } else {

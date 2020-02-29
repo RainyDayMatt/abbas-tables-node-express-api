@@ -1,33 +1,12 @@
-const userQueries = require("../db/queries.users.js");
+const userQueries = require("../db/queries.users");
+const userFields = require("../support/modelDefinitions/userSource").getFields();
 
 module.exports = {
     create(req, res, next) {
-        const newUser = {
-            email: req.body.email,
-            password: req.body.password,
-            confirmationPassword: req.body.confirmationPassword,
-            firstName: req.body.firstName,
-            lastName: req.body.lastName,
-            mobilePhone: req.body.mobilePhone,
-            homePhone: req.body.homePhone,
-            workPhone: req.body.workPhone,
-            otherPhone: req.body.otherPhone,
-            preferredContactMethod: req.body.preferredContactMethod,
-            canEnterMealCount: req.body.canEnterMealCount,
-            canChangeProps: req.body.canChangeProps,
-            canCreateNewsItems: req.body.canCreateNewsItems,
-            canEditNewsItems: req.body.canEditNewsItems,
-            canDeleteNewsItems: req.body.canDeleteNewsItems,
-            canCreateNewsItemComments: req.body.canCreateNewsItemComments,
-            canEditNewsItemComments: req.body.canEditNewsItemComments,
-            canDeleteNewsItemComments: req.body.canDeleteNewsItemComments,
-            canChangeRoles: req.body.canChangeRoles
-        };
-        userQueries.createUser(newUser, (err, user) => {
+        userQueries.createUser(req.body, (err, user) => {
             if (err) {
                 res.status(400).json({ err: err });
-            }
-            else {
+            } else {
                 res.status(200).json({ user: user });
             }
         });
@@ -40,8 +19,7 @@ module.exports = {
         userQueries.getUserLazy(signInUser, (err, user) => {
             if (err) {
                 res.status(400).json({ err: err });
-            }
-            else {
+            } else {
                 res.status(200).json({ user: user });
             }
         });

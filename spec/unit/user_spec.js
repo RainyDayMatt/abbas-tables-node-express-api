@@ -1,7 +1,7 @@
 const sequelize = require("../../src/db/models/index").sequelize;
 const User = require("../../src/db/models").User;
 
-const validationMessages = require("../../src/support/dictionary").getValidationMessages();
+const errorMessages = require("../../src/support/dictionaries/errorMessages").getUserCreationErrorMessages();
 
 describe("User", () => {
     beforeEach((done) => {
@@ -107,7 +107,7 @@ describe("User", () => {
                 })
                 .catch((err) => {
                     expect(err.errors.length).toEqual(1);
-                    expect(err.errors[0].message).toContain(validationMessages.emailIsInvalid);
+                    expect(err.errors[0].message).toContain(errorMessages.emailIsInvalid);
                     done();
                 });
         });
@@ -146,7 +146,7 @@ describe("User", () => {
                 })
                 .catch((err) => {
                     expect(err.errors.length).toEqual(1);
-                    expect(err.errors[0].message).toContain(validationMessages.firstNameIsNotAlphabetic);
+                    expect(err.errors[0].message).toContain(errorMessages.firstNameIsNotAlphabetic);
                     done();
                 });
         });
@@ -159,7 +159,7 @@ describe("User", () => {
                 })
                 .catch((err) => {
                     expect(err.errors.length).toEqual(1);
-                    expect(err.errors[0].message).toContain(validationMessages.firstNameLengthIsInvalid);
+                    expect(err.errors[0].message).toContain(errorMessages.firstNameLengthIsInvalid);
                     done();
                 });
         });
@@ -185,7 +185,7 @@ describe("User", () => {
                 })
                 .catch((err) => {
                     expect(err.errors.length).toEqual(1);
-                    expect(err.errors[0].message).toContain(validationMessages.lastNameIsNotAlphabetic);
+                    expect(err.errors[0].message).toContain(errorMessages.lastNameIsNotAlphabetic);
                     done();
                 });
         });
@@ -198,7 +198,7 @@ describe("User", () => {
                 })
                 .catch((err) => {
                     expect(err.errors.length).toEqual(1);
-                    expect(err.errors[0].message).toContain(validationMessages.lastNameLengthIsInvalid);
+                    expect(err.errors[0].message).toContain(errorMessages.lastNameLengthIsInvalid);
                     done();
                 });
         });
@@ -224,7 +224,7 @@ describe("User", () => {
                 })
                 .catch((err) => {
                     expect(err.errors.length).toEqual(1);
-                    expect(err.errors[0].message).toContain(validationMessages.mobilePhoneIsNotNumeric);
+                    expect(err.errors[0].message).toContain(errorMessages.mobilePhoneIsNotNumeric);
                     done();
                 });
         });
@@ -237,7 +237,7 @@ describe("User", () => {
                 })
                 .catch((err) => {
                     expect(err.errors.length).toEqual(1);
-                    expect(err.errors[0].message).toContain(validationMessages.mobilePhoneLengthIsInvalid);
+                    expect(err.errors[0].message).toContain(errorMessages.mobilePhoneLengthIsInvalid);
                     done();
                 });
         });
@@ -250,7 +250,7 @@ describe("User", () => {
                 })
                 .catch((err) => {
                     expect(err.errors.length).toEqual(1);
-                    expect(err.errors[0].message).toContain(validationMessages.homePhoneIsNotNumeric);
+                    expect(err.errors[0].message).toContain(errorMessages.homePhoneIsNotNumeric);
                     done();
                 });
         });
@@ -263,7 +263,7 @@ describe("User", () => {
                 })
                 .catch((err) => {
                     expect(err.errors.length).toEqual(1);
-                    expect(err.errors[0].message).toContain(validationMessages.homePhoneLengthIsInvalid);
+                    expect(err.errors[0].message).toContain(errorMessages.homePhoneLengthIsInvalid);
                     done();
                 });
         });
@@ -276,7 +276,7 @@ describe("User", () => {
                 })
                 .catch((err) => {
                     expect(err.errors.length).toEqual(1);
-                    expect(err.errors[0].message).toContain(validationMessages.workPhoneIsNotNumeric);
+                    expect(err.errors[0].message).toContain(errorMessages.workPhoneIsNotNumeric);
                     done();
                 });
         });
@@ -289,7 +289,7 @@ describe("User", () => {
                 })
                 .catch((err) => {
                     expect(err.errors.length).toEqual(1);
-                    expect(err.errors[0].message).toContain(validationMessages.workPhoneLengthIsInvalid);
+                    expect(err.errors[0].message).toContain(errorMessages.workPhoneLengthIsInvalid);
                     done();
                 });
         });
@@ -302,7 +302,7 @@ describe("User", () => {
                 })
                 .catch((err) => {
                     expect(err.errors.length).toEqual(1);
-                    expect(err.errors[0].message).toContain(validationMessages.otherPhoneIsNotNumeric);
+                    expect(err.errors[0].message).toContain(errorMessages.otherPhoneIsNotNumeric);
                     done();
                 });
         });
@@ -315,7 +315,7 @@ describe("User", () => {
                 })
                 .catch((err) => {
                     expect(err.errors.length).toEqual(1);
-                    expect(err.errors[0].message).toContain(validationMessages.otherPhoneLengthIsInvalid);
+                    expect(err.errors[0].message).toContain(errorMessages.otherPhoneLengthIsInvalid);
                     done();
                 });
         });
@@ -335,15 +335,15 @@ describe("User", () => {
                     done();
                 })
                 .catch((err) => {
-                    expect(err.errors[0].message).toBe(validationMessages.canEnterMealCountIsNotBoolean);
-                    expect(err.errors[1].message).toBe(validationMessages.canChangePropsIsNotBoolean);
-                    expect(err.errors[2].message).toBe(validationMessages.canCreateNewsItemsIsNotBoolean);
-                    expect(err.errors[3].message).toBe(validationMessages.canEditNewsItemsIsNotBoolean);
-                    expect(err.errors[4].message).toBe(validationMessages.canDeleteNewsItemsIsNotBoolean);
-                    expect(err.errors[5].message).toBe(validationMessages.canCreateNewsItemCommentsIsNotBoolean);
-                    expect(err.errors[6].message).toBe(validationMessages.canEditNewsItemCommentsIsNotBoolean);
-                    expect(err.errors[7].message).toBe(validationMessages.canDeleteNewsItemCommentsIsNotBoolean);
-                    expect(err.errors[8].message).toBe(validationMessages.canChangeRolesIsNotBoolean);
+                    expect(err.errors[0].message).toBe(errorMessages.canEnterMealCountIsNotBoolean);
+                    expect(err.errors[1].message).toBe(errorMessages.canChangePropsIsNotBoolean);
+                    expect(err.errors[2].message).toBe(errorMessages.canCreateNewsItemsIsNotBoolean);
+                    expect(err.errors[3].message).toBe(errorMessages.canEditNewsItemsIsNotBoolean);
+                    expect(err.errors[4].message).toBe(errorMessages.canDeleteNewsItemsIsNotBoolean);
+                    expect(err.errors[5].message).toBe(errorMessages.canCreateNewsItemCommentsIsNotBoolean);
+                    expect(err.errors[6].message).toBe(errorMessages.canEditNewsItemCommentsIsNotBoolean);
+                    expect(err.errors[7].message).toBe(errorMessages.canDeleteNewsItemCommentsIsNotBoolean);
+                    expect(err.errors[8].message).toBe(errorMessages.canChangeRolesIsNotBoolean);
                     done();
                 });
         });
