@@ -28,5 +28,23 @@ module.exports = {
                 res.status(200).json({ servingSummary: servingSummary });
             }
         });
+    },
+    getMonthSummary(req, res, next) {
+        servingSummaryQueries.getMonthSummary(req.params.year, req.params.month, (err, monthSummary) => {
+            if (err) {
+                res.status(400).json({ err: err });
+            } else {
+                res.status(200).json({ monthSummary: monthSummary });
+            }
+        });
+    },
+    getYearSummary(req, res, next) {
+        servingSummaryQueries.getYearSummary(req.params.year, (err, yearSummary) => {
+            if (err) {
+                res.status(400).json({ err: err });
+            } else {
+                res.status(200).json({ yearSummary: yearSummary });
+            }
+        });
     }
 };

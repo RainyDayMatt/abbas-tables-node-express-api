@@ -8,5 +8,7 @@ const servingSummaryController = require("../controllers/servingSummaryControlle
 router.post("/servingSummaries", validation.validateServingSummaries, helpers.checkServingSummaryDateAvailability, servingSummaryController.create);
 router.get("/servingSummaries/year/:year/month/:month/day/:day", servingSummaryController.get);
 router.patch("/servingSummaries/year/:year/month/:month/day/:day", validation.validateServingSummaries, servingSummaryController.update);
+router.get("/servingSummaries/year/:year/month/:month", servingSummaryController.getMonthSummary);
+router.get("/servingSummaries/year/:year", servingSummaryController.getYearSummary);
 
 module.exports = router;

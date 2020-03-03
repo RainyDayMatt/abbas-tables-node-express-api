@@ -13,5 +13,20 @@ module.exports = {
             notes: "Supervisor fell to Abyss.",
             hadIncident: true
         };
+    },
+    getDetailed(year, month, day, totalMeals, adultGuestMeals, childGuestMeals, volunteerMeals) {
+        return {
+            year: year,
+            month: month,
+            day: day,
+            totalMeals: totalMeals,
+            adultGuestMeals: adultGuestMeals,
+            childGuestMeals: childGuestMeals,
+            volunteerMeals: volunteerMeals,
+            whichUserCreated: "artorias@anor.gov",
+            whichUserLastChanged: "ggwsif@anor.gov",
+            notes: "Supervisor fell to Abyss.",
+            hadIncident: true
+        }
     }
 };

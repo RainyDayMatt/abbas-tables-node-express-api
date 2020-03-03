@@ -695,4 +695,84 @@ describe("routes : servingSummaries", () => {
                 });
         });
     });
+
+    describe("GET /servingSummaries/year/:year/month/:month", () => {
+        beforeEach((done) => {
+            this.firstServingSummary = servingSummaryFactory.getDetailed(2020, 1, 1, 45, 30, 10, 5);
+            this.secondServingSummary = servingSummaryFactory.getDetailed(2020, 1, 2, 60, 45, 10, 5);
+            this.thirdServingSummary = servingSummaryFactory.getDetailed(2020, 2, 1, 75, 60, 10, 5);
+            ServingSummary.bulkCreate([ this.firstServingSummary, this.secondServingSummary, this.thirdServingSummary ])
+                .then((servingSummaries) => {
+                    done();
+                })
+                .catch((err) => {
+                    console.log(err);
+                    done();
+                });
+            this.servingSummaryAggregateOptions = {
+                url: `${ base }year/${ this.firstServingSummary.year }/month/${ this.firstServingSummary.month }`
+            };
+        });
+        it("Should return the appropriate totals when a year and month are supplied for which there are numbers.", (done) => {
+            request.get(this.servingSummaryAggregateOptions,
+                (err, res, body) => {
+                    expect(JSON.parse(body).monthSummary.totalMeals).toBe(this.firstServingSummary.totalMeals + this.secondServingSummary.totalMeals);
+                    expect(JSON.parse(body).monthSummary.adultGuestMeals).toBe(this.firstServingSummary.adultGuestMeals + this.secondServingSummary.adultGuestMeals);
+                    expect(JSON.parse(body).monthSummary.childGuestMeals).toBe(this.firstServingSummary.childGuestMeals + this.secondServingSummary.childGuestMeals);
+                    expect(JSON.parse(body).monthSummary.volunteerMeals).toBe(this.firstServingSummary.volunteerMeals + this.secondServingSummary.volunteerMeals);
+                    done();
+                });
+        });
+        it("Should return the appropriate totals when a year and month are supplied for which there aren't numbers.", (done) => {
+            this.servingSummaryAggregateOptions.url = `${ base }year/${ this.firstServingSummary.year + 3 }/month/${ this.firstServingSummary.month + 3 }`;
+            request.get(this.servingSummaryAggregateOptions,
+                (err, res, body) => {
+                    expect(JSON.parse(body).monthSummary.totalMeals).toBe(0);
+                    expect(JSON.parse(body).monthSummary.adultGuestMeals).toBe(0);
+                    expect(JSON.parse(body).monthSummary.childGuestMeals).toBe(0);
+                    expect(JSON.parse(body).monthSummary.volunteerMeals).toBe(0);
+                    done();
+                });
+        });
+    });
+
+    describe("GET /servingSummaries/year/:year", () => {
+        beforeEach((done) => {
+            this.firstServingSummary = servingSummaryFactory.getDetailed(2020, 1, 1, 45, 30, 10, 5);
+            this.secondServingSummary = servingSummaryFactory.getDetailed(2020, 1, 2, 60, 45, 10, 5);
+            this.thirdServingSummary = servingSummaryFactory.getDetailed(2021, 1, 3, 75, 60, 10, 5);
+            ServingSummary.bulkCreate([ this.firstServingSummary, this.secondServingSummary, this.thirdServingSummary ])
+                .then((servingSummaries) => {
+                    done();
+                })
+                .catch((err) => {
+                    console.log(err);
+                    done();
+                });
+            this.servingSummaryAggregateOptions = {
+                url: `${ base }year/${ this.firstServingSummary.year }`
+            };
+        });
+        it("Should return the appropriate totals when a year is supplied for which there are numbers.", (done) => {
+            request.get(this.servingSummaryAggregateOptions,
+                (err, res, body) => {
+                    expect(JSON.parse(body).yearSummary.totalMeals).toBe(this.firstServingSummary.totalMeals + this.secondServingSummary.totalMeals);
+                    expect(JSON.parse(body).yearSummary.adultGuestMeals).toBe(this.firstServingSummary.adultGuestMeals + this.secondServingSummary.adultGuestMeals);
+                    expect(JSON.parse(body).yearSummary.childGuestMeals).toBe(this.firstServingSummary.childGuestMeals + this.secondServingSummary.childGuestMeals);
+                    expect(JSON.parse(body).yearSummary.volunteerMeals).toBe(this.firstServingSummary.volunteerMeals + this.secondServingSummary.volunteerMeals);
+                    done();
+                });
+        });
+        it("Should return the appropriate totals when a year is supplied for which there aren't numbers.", (done) => {
+            this.servingSummaryAggregateOptions.url = `${ base }year/${ this.firstServingSummary.year + 3 }`;
+            request.get(this.servingSummaryAggregateOptions,
+                (err, res, body) => {
+                    expect(JSON.parse(body).yearSummary.totalMeals).toBe(0);
+                    expect(JSON.parse(body).yearSummary.adultGuestMeals).toBe(0);
+                    expect(JSON.parse(body).yearSummary.childGuestMeals).toBe(0);
+                    expect(JSON.parse(body).yearSummary.volunteerMeals).toBe(0);
+                    done();
+                });
+        });
+    });
 });
