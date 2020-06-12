@@ -57,7 +57,7 @@ module.exports = {
                                             callback(null, updatedProperty);
                                         })
                                         .catch((err) => {
-                                            callback([ err ]);
+                                            callback([ err.message ]);
                                         });
                                 }
                             }

@@ -21,7 +21,7 @@ module.exports = {
         });
     },
     update(req, res, next) {
-        propertyQueries.updateProperty(req.params.key, req.body.updatedProperty, req.body.whichUserLastChanged, (err, property) => {
+        propertyQueries.updateProperty(req.params.key, req.body, req.body.whichUserLastChanged, (err, property) => {
             if (err) {
                 res.status(400).json({ err: err });
             } else {
