@@ -81,14 +81,13 @@ module.exports = {
             req.checkBody("whichUserCreated", errorMessages.getPropertyCreationErrorMessages().whichUserCreatedEmailIsInvalid).isEmail();
             req.checkBody("whichUserLastChanged", errorMessages.getPropertyCreationErrorMessages().whichUserLastChangedEmailIsInvalid).isEmail();
         } else if (req.method === "PATCH") {
-            req.checkBody("whichUserLastChanged", errorMessages.getPropertyCreationErrorMessages().whichUserLastChangedEmailIsInvalid).isEmail();
-            req.checkBody({"updatedProperty.whichUserCreated": {
+            req.checkBody({"whichUserCreated": {
                 optional: true,
                 isEmail: {
                     errorMessage: errorMessages.getPropertyCreationErrorMessages().whichUserCreatedEmailIsInvalid
                 }
             }});
-            req.checkBody({"updatedProperty.whichUserLastChanged": {
+            req.checkBody({"whichUserLastChanged": {
                 optional: true,
                 isEmail: {
                     errorMessage: errorMessages.getPropertyCreationErrorMessages().whichUserLastChangedEmailIsInvalid
