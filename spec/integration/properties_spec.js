@@ -155,10 +155,7 @@ describe("routes : properties", () => {
             this.propertyUpdateOptions = {
                 url: `${ base }${ this.newProperty.key }`,
                 form: {
-                    updatedProperty: {
-                        key: this.newProperty.key,
-                        value: "Raspberry Crunch Cake"
-                    },
+                    value: "Raspberry Crunch Cake",
                     whichUserLastChanged: this.propertyUpdateUser.email
                 }
             };
@@ -168,7 +165,7 @@ describe("routes : properties", () => {
                 .then((user) => {
                     request.patch(this.propertyUpdateOptions,
                         (err, res, body) => {
-                            expect(JSON.parse(body).property.value).toEqual(this.propertyUpdateOptions.form.updatedProperty.value);
+                            expect(JSON.parse(body).property.value).toEqual(this.propertyUpdateOptions.form.value);
                             done();
                         }
                     );
@@ -220,7 +217,7 @@ describe("routes : properties", () => {
                 .then((user) => {
                     request.patch(this.propertyUpdateOptions,
                         (err, res, body) => {
-                            Property.findOne({ where: { key: this.propertyUpdateOptions.form.updatedProperty.key } })
+                            Property.findOne({ where: { key: this.newProperty.key } })
                                 .then((property) => {
                                     expect(property.value).toEqual(this.newProperty.value);
                                     expect(JSON.parse(body).err.length).toBe(1);
@@ -240,12 +237,12 @@ describe("routes : properties", () => {
                 });
         });
         it("Should not update a Property object if the updated Property has an invalid creating user value.", (done) => {
-            this.propertyUpdateOptions.form.updatedProperty.whichUserCreated = "ShepardAtn7Dotgov";
+            this.propertyUpdateOptions.form.whichUserCreated = "ShepardAtn7Dotgov";
             User.create(this.propertyUpdateUser)
                 .then((user) => {
                     request.patch(this.propertyUpdateOptions,
                         (err, res, body) => {
-                            Property.findOne({ where: { key: this.propertyUpdateOptions.form.updatedProperty.key } })
+                            Property.findOne({ where: { key: this.newProperty.key } })
                                 .then((property) => {
                                     expect(property.value).toEqual(this.newProperty.value);
                                     expect(JSON.parse(body).err.length).toBe(1);
@@ -265,12 +262,12 @@ describe("routes : properties", () => {
                 });
         });
         it("Should not update a Property object if the updated Property has an invalid last changing user value.", (done) => {
-            this.propertyUpdateOptions.form.updatedProperty.whichUserLastChanged = "ShepardAtn7Dotgov";
+            this.propertyUpdateOptions.form.whichUserLastChanged = "ShepardAtn7Dotgov";
             User.create(this.propertyUpdateUser)
                 .then((user) => {
                     request.patch(this.propertyUpdateOptions,
                         (err, res, body) => {
-                            Property.findOne({ where: { key: this.propertyUpdateOptions.form.updatedProperty.key } })
+                            Property.findOne({ where: { key: this.newProperty.key } })
                                 .then((property) => {
                                     expect(property.value).toEqual(this.newProperty.value);
                                     expect(JSON.parse(body).err.length).toBe(1);
