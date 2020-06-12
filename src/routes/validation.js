@@ -117,58 +117,52 @@ module.exports = {
             req.checkBody("whichUserCreated", errorMessages.getServingSummaryCreationErrorMessages().whichUserCreatedEmailIsInvalid).isEmail();
             req.checkBody("whichUserLastChanged", errorMessages.getServingSummaryCreationErrorMessages().whichUserLastChangedEmailIsInvalid).isEmail();
         } else if (req.method === "PATCH") {
-            req.checkBody({"updatedServingSummary.year": {
+            req.checkBody({"year": {
                 optional: true,
                 isNumeric: {
                     errorMessage: errorMessages.getServingSummaryCreationErrorMessages().yearIsNotNumeric
                 }
             }});
-            req.checkBody({"updatedServingSummary.month": {
+            req.checkBody({"month": {
                 optional: true,
                 isNumeric: {
                     errorMessage: errorMessages.getServingSummaryCreationErrorMessages().monthIsNotNumeric
                 }
             }});
-            req.checkBody({"updatedServingSummary.day": {
+            req.checkBody({"day": {
                 optional: true,
                 isNumeric: {
                     errorMessage: errorMessages.getServingSummaryCreationErrorMessages().dayIsNotNumeric
                 }
             }});
-            req.checkBody({"updatedServingSummary.totalMeals": {
+            req.checkBody({"totalMeals": {
                 optional: true,
                 isNumeric: {
                     errorMessage: errorMessages.getServingSummaryCreationErrorMessages().totalMealsIsNotNumeric
                 }
             }});
-            req.checkBody({"updatedServingSummary.adultGuestMeals": {
+            req.checkBody({"adultGuestMeals": {
                 optional: true,
                 isNumeric: {
                     errorMessage: errorMessages.getServingSummaryCreationErrorMessages().adultGuestMealsIsNotNumeric
                 }
             }});
-            req.checkBody({"updatedServingSummary.childGuestMeals": {
+            req.checkBody({"childGuestMeals": {
                 optional: true,
                 isNumeric: {
                     errorMessage: errorMessages.getServingSummaryCreationErrorMessages().childGuestMealsIsNotNumeric
                 }
             }});
-            req.checkBody({"updatedServingSummary.volunteerMeals": {
+            req.checkBody({"volunteerMeals": {
                 optional: true,
                 isNumeric: {
                     errorMessage: errorMessages.getServingSummaryCreationErrorMessages().volunteerMealsIsNotNumeric
                 }
             }});
-            req.checkBody({"updatedServingSummary.whichUserCreated": {
+            req.checkBody({"whichUserCreated": {
                 optional: true,
                 isEmail: {
                     errorMessage: errorMessages.getServingSummaryCreationErrorMessages().whichUserCreatedEmailIsInvalid
-                }
-            }});
-            req.checkBody({"updatedServingSummary.whichUserLastChanged": {
-                optional: true,
-                isEmail: {
-                    errorMessage: errorMessages.getServingSummaryCreationErrorMessages().whichUserLastChangedEmailIsInvalid
                 }
             }});
             req.checkBody({"whichUserLastChanged": {

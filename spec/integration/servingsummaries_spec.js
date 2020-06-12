@@ -365,10 +365,8 @@ describe("routes : servingSummaries", () => {
             this.servingSummaryUpdateOptions = {
                 url: `${ base }year/${ this.newServingSummary.year }/month/${ this.newServingSummary.month }/day/${ this.newServingSummary.day }`,
                 form: {
-                    whichUserLastChanged: this.servingSummaryUpdateUser.email,
-                    updatedServingSummary: {
-                        notes: "Supervisor defeated by the Chosen Undead."
-                    }
+                    notes: "Supervisor defeated by the Chosen Undead.",
+                    whichUserLastChanged: this.servingSummaryUpdateUser.email
                 }
             };
         });
@@ -377,7 +375,7 @@ describe("routes : servingSummaries", () => {
                 .then((user) => {
                     request.patch(this.servingSummaryUpdateOptions,
                         (err, res, body) => {
-                            expect(JSON.parse(body).servingSummary.notes).toEqual(this.servingSummaryUpdateOptions.form.updatedServingSummary.notes);
+                            expect(JSON.parse(body).servingSummary.notes).toEqual(this.servingSummaryUpdateOptions.form.notes);
                             done();
                         }
                     );
@@ -398,7 +396,7 @@ describe("routes : servingSummaries", () => {
             );
         });
         it("Should not update a ServingSummary object with an invalid year value.", (done) => {
-            this.servingSummaryUpdateOptions.form.updatedServingSummary.year = "sqlInjection";
+            this.servingSummaryUpdateOptions.form.year = "sqlInjection";
             User.create(this.servingSummaryUpdateUser)
                 .then((user) => {
                     request.patch(this.servingSummaryUpdateOptions,
@@ -427,7 +425,7 @@ describe("routes : servingSummaries", () => {
                 });
         });
         it("Should not update a ServingSummary object with an invalid month value.", (done) => {
-            this.servingSummaryUpdateOptions.form.updatedServingSummary.month = "sqlInjection";
+            this.servingSummaryUpdateOptions.form.month = "sqlInjection";
             User.create(this.servingSummaryUpdateUser)
                 .then((user) => {
                     request.patch(this.servingSummaryUpdateOptions,
@@ -456,7 +454,7 @@ describe("routes : servingSummaries", () => {
                 });
         });
         it("Should not update a ServingSummary object with an invalid day value.", (done) => {
-            this.servingSummaryUpdateOptions.form.updatedServingSummary.day = "sqlInjection";
+            this.servingSummaryUpdateOptions.form.day = "sqlInjection";
             User.create(this.servingSummaryUpdateUser)
                 .then((user) => {
                     request.patch(this.servingSummaryUpdateOptions,
@@ -485,7 +483,7 @@ describe("routes : servingSummaries", () => {
                 });
         });
         it("Should not update a ServingSummary object with an invalid total meals value.", (done) => {
-            this.servingSummaryUpdateOptions.form.updatedServingSummary.totalMeals = "sqlInjection";
+            this.servingSummaryUpdateOptions.form.totalMeals = "sqlInjection";
             User.create(this.servingSummaryUpdateUser)
                 .then((user) => {
                     request.patch(this.servingSummaryUpdateOptions,
@@ -514,7 +512,7 @@ describe("routes : servingSummaries", () => {
                 });
         });
         it("Should not update a ServingSummary object with an invalid adult guest meals value.", (done) => {
-            this.servingSummaryUpdateOptions.form.updatedServingSummary.adultGuestMeals = "sqlInjection";
+            this.servingSummaryUpdateOptions.form.adultGuestMeals = "sqlInjection";
             User.create(this.servingSummaryUpdateUser)
                 .then((user) => {
                     request.patch(this.servingSummaryUpdateOptions,
@@ -543,7 +541,7 @@ describe("routes : servingSummaries", () => {
                 });
         });
         it("Should not update a ServingSummary object with an invalid child guest meals value.", (done) => {
-            this.servingSummaryUpdateOptions.form.updatedServingSummary.childGuestMeals = "sqlInjection";
+            this.servingSummaryUpdateOptions.form.childGuestMeals = "sqlInjection";
             User.create(this.servingSummaryUpdateUser)
                 .then((user) => {
                     request.patch(this.servingSummaryUpdateOptions,
@@ -572,7 +570,7 @@ describe("routes : servingSummaries", () => {
                 });
         });
         it("Should not update a ServingSummary object with an invalid volunteer meals value.", (done) => {
-            this.servingSummaryUpdateOptions.form.updatedServingSummary.volunteerMeals = "sqlInjection";
+            this.servingSummaryUpdateOptions.form.volunteerMeals = "sqlInjection";
             User.create(this.servingSummaryUpdateUser)
                 .then((user) => {
                     request.patch(this.servingSummaryUpdateOptions,
@@ -601,7 +599,7 @@ describe("routes : servingSummaries", () => {
                 });
         });
         it("Should not update a ServingSummary object with an invalid creating user value.", (done) => {
-            this.servingSummaryUpdateOptions.form.updatedServingSummary.whichUserCreated = "ShepardAtn7Dotgov";
+            this.servingSummaryUpdateOptions.form.whichUserCreated = "ShepardAtn7Dotgov";
             User.create(this.servingSummaryUpdateUser)
                 .then((user) => {
                     request.patch(this.servingSummaryUpdateOptions,
@@ -630,7 +628,7 @@ describe("routes : servingSummaries", () => {
                 });
         });
         it("Should not update a ServingSummary object with an invalid last changing user value.", (done) => {
-            this.servingSummaryUpdateOptions.form.updatedServingSummary.whichUserLastChanged = "ShepardAtn7Dotgov";
+            this.servingSummaryUpdateOptions.form.whichUserLastChanged = "ShepardAtn7Dotgov";
             User.create(this.servingSummaryUpdateUser)
                 .then((user) => {
                     request.patch(this.servingSummaryUpdateOptions,
