@@ -9,7 +9,7 @@ module.exports = {
             },
             value: {
                 allowNull: false,
-                type: types.STRING
+                type: types.STRING(1000)
             },
             whichUserCreated: {
                 allowNull: false,
