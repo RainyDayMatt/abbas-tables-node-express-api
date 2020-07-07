@@ -54,158 +54,186 @@ describe("ServingSummary", () => {
                     done();
                 });
         });
-        it("Should not create a ServingSummary object with a null year.", () => {
+        it("Should not create a ServingSummary object with a null year.", (done) => {
             this.servingSummaryCreationOptions.year = null;
             ServingSummary.create(this.servingSummaryCreationOptions)
                 .then((servingsummary) => {
-                    fail("Validation failed to catch: null year.")
+                    fail("Validation failed to catch: null year.");
+                    done();
                 })
                 .catch((err) => {
                     expect(err.errors.length).toEqual(1);
                     expect(err.errors[0].message).toContain("ServingSummary.year cannot be null");
+                    done();
                 });
         });
-        it("Should not create a ServingSummary object with an invalid year.", () => {
+        it("Should not create a ServingSummary object with an invalid year.", (done) => {
             this.servingSummaryCreationOptions.year = "T3st";
             ServingSummary.create(this.servingSummaryCreationOptions)
                 .then((servingsummary) => {
-                    fail("Validation failed to catch: invalid year.")
+                    fail("Validation failed to catch: invalid year.");
+                    done();
                 })
                 .catch((err) => {
                     expect(err.errors.length).toEqual(1);
                     expect(err.errors[0].message).toContain(errorMessages.yearIsNotNumeric);
+                    done();
                 });
         });
-        it("Should not create a ServingSummary object with a null month.", () => {
+        it("Should not create a ServingSummary object with a null month.", (done) => {
             this.servingSummaryCreationOptions.month = null;
             ServingSummary.create(this.servingSummaryCreationOptions)
                 .then((servingsummary) => {
-                    fail("Validation failed to catch: null month.")
+                    fail("Validation failed to catch: null month.");
+                    done();
                 })
                 .catch((err) => {
                     expect(err.errors.length).toEqual(1);
                     expect(err.errors[0].message).toContain("ServingSummary.month cannot be null");
+                    done();
                 });
         });
-        it("Should not create a ServingSummary object with an invalid month.", () => {
+        it("Should not create a ServingSummary object with an invalid month.", (done) => {
             this.servingSummaryCreationOptions.month = "T3st";
             ServingSummary.create(this.servingSummaryCreationOptions)
                 .then((servingsummary) => {
-                    fail("Validation failed to catch: invalid month.")
+                    fail("Validation failed to catch: invalid month.");
+                    done();
                 })
                 .catch((err) => {
                     expect(err.errors.length).toEqual(1);
                     expect(err.errors[0].message).toContain(errorMessages.monthIsNotNumeric);
+                    done();
                 });
         });
-        it("Should not create a ServingSummary object with a null day.", () => {
+        it("Should not create a ServingSummary object with a null day.", (done) => {
             this.servingSummaryCreationOptions.day = null;
             ServingSummary.create(this.servingSummaryCreationOptions)
                 .then((servingsummary) => {
-                    fail("Validation failed to catch: null day.")
+                    fail("Validation failed to catch: null day.");
+                    done();
                 })
                 .catch((err) => {
                     expect(err.errors.length).toEqual(1);
                     expect(err.errors[0].message).toContain("ServingSummary.day cannot be null");
+                    done();
                 });
         });
-        it("Should not create a ServingSummary object with an invalid day.", () => {
+        it("Should not create a ServingSummary object with an invalid day.", (done) => {
             this.servingSummaryCreationOptions.day = "T3st";
             ServingSummary.create(this.servingSummaryCreationOptions)
                 .then((servingsummary) => {
-                    fail("Validation failed to catch: invalid day.")
+                    fail("Validation failed to catch: invalid day.");
+                    done();
                 })
                 .catch((err) => {
                     expect(err.errors.length).toEqual(1);
                     expect(err.errors[0].message).toContain(errorMessages.dayIsNotNumeric);
+                    done();
                 });
         });
-        it("Should not create a ServingSummary object with a null total meal count.", () => {
+        it("Should not create a ServingSummary object with a null total meal count.", (done) => {
             this.servingSummaryCreationOptions.totalMeals = null;
             ServingSummary.create(this.servingSummaryCreationOptions)
                 .then((servingsummary) => {
-                    fail("Validation failed to catch: null total meal count.")
+                    fail("Validation failed to catch: null total meal count.");
+                    done();
                 })
                 .catch((err) => {
                     expect(err.errors.length).toEqual(1);
                     expect(err.errors[0].message).toContain("ServingSummary.totalMeals cannot be null");
+                    done();
                 });
         });
-        it("Should not create a ServingSummary object with an invalid total meal count.", () => {
+        it("Should not create a ServingSummary object with an invalid total meal count.", (done) => {
             this.servingSummaryCreationOptions.totalMeals = "T3st";
             ServingSummary.create(this.servingSummaryCreationOptions)
                 .then((servingsummary) => {
-                    fail("Validation failed to catch: invalid total meal count.")
+                    fail("Validation failed to catch: invalid total meal count.");
+                    done();
                 })
                 .catch((err) => {
                     expect(err.errors.length).toEqual(1);
                     expect(err.errors[0].message).toContain(errorMessages.totalMealsIsNotNumeric);
+                    done();
                 });
         });
-        it("Should not create a ServingSummary object with a null adult guest meal count.", () => {
+        it("Should not create a ServingSummary object with a null adult guest meal count.", (done) => {
             this.servingSummaryCreationOptions.adultGuestMeals = null;
             ServingSummary.create(this.servingSummaryCreationOptions)
                 .then((servingsummary) => {
-                    fail("Validation failed to catch: null adult guest meal count.")
+                    fail("Validation failed to catch: null adult guest meal count.");
+                    done();
                 })
                 .catch((err) => {
                     expect(err.errors.length).toEqual(1);
                     expect(err.errors[0].message).toContain("ServingSummary.adultGuestMeals cannot be null");
+                    done();
                 });
         });
-        it("Should not create a ServingSummary object with an invalid adult guest meal count.", () => {
+        it("Should not create a ServingSummary object with an invalid adult guest meal count.", (done) => {
             this.servingSummaryCreationOptions.adultGuestMeals = "T3st";
             ServingSummary.create(this.servingSummaryCreationOptions)
                 .then((servingsummary) => {
-                    fail("Validation failed to catch: invalid adult guest meal count.")
+                    fail("Validation failed to catch: invalid adult guest meal count.");
+                    done();
                 })
                 .catch((err) => {
                     expect(err.errors.length).toEqual(1);
                     expect(err.errors[0].message).toContain(errorMessages.adultGuestMealsIsNotNumeric);
+                    done();
                 });
         });
-        it("Should not create a ServingSummary object with a null child guest meal count.", () => {
+        it("Should not create a ServingSummary object with a null child guest meal count.", (done) => {
             this.servingSummaryCreationOptions.childGuestMeals = null;
             ServingSummary.create(this.servingSummaryCreationOptions)
                 .then((servingsummary) => {
-                    fail("Validation failed to catch: null child guest meal count.")
+                    fail("Validation failed to catch: null child guest meal count.");
+                    done();
                 })
                 .catch((err) => {
                     expect(err.errors.length).toEqual(1);
                     expect(err.errors[0].message).toContain("ServingSummary.childGuestMeals cannot be null");
+                    done();
                 });
         });
-        it("Should not create a ServingSummary object with an invalid child guest meal count.", () => {
+        it("Should not create a ServingSummary object with an invalid child guest meal count.", (done) => {
             this.servingSummaryCreationOptions.childGuestMeals = "T3st";
             ServingSummary.create(this.servingSummaryCreationOptions)
                 .then((servingsummary) => {
-                    fail("Validation failed to catch: invalid child guest meal count.")
+                    fail("Validation failed to catch: invalid child guest meal count.");
+                    done();
                 })
                 .catch((err) => {
                     expect(err.errors.length).toEqual(1);
                     expect(err.errors[0].message).toContain(errorMessages.childGuestMealsIsNotNumeric);
+                    done();
                 });
         });
-        it("Should not create a ServingSummary object with a null volunteer meal count.", () => {
+        it("Should not create a ServingSummary object with a null volunteer meal count.", (done) => {
             this.servingSummaryCreationOptions.volunteerMeals = null;
             ServingSummary.create(this.servingSummaryCreationOptions)
                 .then((servingsummary) => {
-                    fail("Validation failed to catch: null volunteer meal count.")
+                    fail("Validation failed to catch: null volunteer meal count.");
+                    done();
                 })
                 .catch((err) => {
                     expect(err.errors.length).toEqual(1);
                     expect(err.errors[0].message).toContain("ServingSummary.volunteerMeals cannot be null");
+                    done();
                 });
         });
-        it("Should not create a ServingSummary object with an invalid volunteer meal count.", () => {
+        it("Should not create a ServingSummary object with an invalid volunteer meal count.", (done) => {
             this.servingSummaryCreationOptions.volunteerMeals = "T3st";
             ServingSummary.create(this.servingSummaryCreationOptions)
                 .then((servingsummary) => {
-                    fail("Validation failed to catch: invalid volunteer meal count.")
+                    fail("Validation failed to catch: invalid volunteer meal count.");
+                    done();
                 })
                 .catch((err) => {
                     expect(err.errors.length).toEqual(1);
                     expect(err.errors[0].message).toContain(errorMessages.volunteerMealsIsNotNumeric);
+                    done();
                 });
         });
         it("Should not create a ServingSummary object with a null creating user value.", (done) => {

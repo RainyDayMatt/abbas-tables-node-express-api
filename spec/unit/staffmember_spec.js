@@ -46,161 +46,160 @@ describe("StaffMember", () => {
                     done();
                 });
         });
-        it("Should not create a StaffMember object with a null group name.", () => {
-            this.staffMemberCreationOptions.groupName = null;
-            StaffMember.create(this.staffMemberCreationOptions)
-                .then((staffmember) => {
-                    fail("Validation failed to catch: null group name.")
-                })
-                .catch((err) => {
-                    expect(err.errors.length).toEqual(1);
-                    expect(err.errors[0].message).toContain("StaffMember.groupName cannot be null");
-                });
-        });
-        it("Should not create a StaffMember object with an invalid group name.", () => {
-            this.staffMemberCreationOptions.groupName = false;
-            StaffMember.create(this.staffMemberCreationOptions)
-                .then((staffmember) => {
-                    console.log("ALPHA");
-                    fail("Validation failed to catch: invalid group name.")
-                })
-                .catch((err) => {
-                    console.log("BRAVO");
-                    expect(err.errors.length).toEqual(1);
-                    expect(err.errors[0].message).toContain(errorMessages.yearIsNotNumeric);
-                });
-            console.log("CHARLIE");
-        });
-        // it("Should not create a StaffMember object with a null month.", () => {
+        // it("Should not create a StaffMember object with a null month.", (done) => {
         //     this.staffMemberCreationOptions.month = null;
         //     StaffMember.create(this.staffMemberCreationOptions)
         //         .then((staffmember) => {
-        //             fail("Validation failed to catch: null month.")
+        //             fail("Validation failed to catch: null month.");
+        //             done();
         //         })
         //         .catch((err) => {
         //             expect(err.errors.length).toEqual(1);
         //             expect(err.errors[0].message).toContain("StaffMember.month cannot be null");
+        //             done();
         //         });
         // });
-        // it("Should not create a StaffMember object with an invalid month.", () => {
+        // it("Should not create a StaffMember object with an invalid month.", (done) => {
         //     this.staffMemberCreationOptions.month = "T3st";
         //     StaffMember.create(this.staffMemberCreationOptions)
         //         .then((staffmember) => {
-        //             fail("Validation failed to catch: invalid month.")
+        //             fail("Validation failed to catch: invalid month.");
+        //             done();
         //         })
         //         .catch((err) => {
         //             expect(err.errors.length).toEqual(1);
         //             expect(err.errors[0].message).toContain(errorMessages.monthIsNotNumeric);
+        //             done();
         //         });
         // });
-        // it("Should not create a StaffMember object with a null day.", () => {
+        // it("Should not create a StaffMember object with a null day.", (done) => {
         //     this.staffMemberCreationOptions.day = null;
         //     StaffMember.create(this.staffMemberCreationOptions)
         //         .then((staffmember) => {
-        //             fail("Validation failed to catch: null day.")
+        //             fail("Validation failed to catch: null day.");
+        //             done();
         //         })
         //         .catch((err) => {
         //             expect(err.errors.length).toEqual(1);
         //             expect(err.errors[0].message).toContain("StaffMember.day cannot be null");
+        //             done();
         //         });
         // });
-        // it("Should not create a StaffMember object with an invalid day.", () => {
+        // it("Should not create a StaffMember object with an invalid day.", (done) => {
         //     this.staffMemberCreationOptions.day = "T3st";
         //     StaffMember.create(this.staffMemberCreationOptions)
         //         .then((staffmember) => {
-        //             fail("Validation failed to catch: invalid day.")
+        //             fail("Validation failed to catch: invalid day.");
+        //             done();
         //         })
         //         .catch((err) => {
         //             expect(err.errors.length).toEqual(1);
         //             expect(err.errors[0].message).toContain(errorMessages.dayIsNotNumeric);
+        //             done();
         //         });
         // });
-        // it("Should not create a StaffMember object with a null total meal count.", () => {
+        // it("Should not create a StaffMember object with a null total meal count.", (done) => {
         //     this.staffMemberCreationOptions.totalMeals = null;
         //     StaffMember.create(this.staffMemberCreationOptions)
         //         .then((staffmember) => {
-        //             fail("Validation failed to catch: null total meal count.")
+        //             fail("Validation failed to catch: null total meal count.");
+        //             done();
         //         })
         //         .catch((err) => {
         //             expect(err.errors.length).toEqual(1);
         //             expect(err.errors[0].message).toContain("StaffMember.totalMeals cannot be null");
+        //             done();
         //         });
         // });
-        // it("Should not create a StaffMember object with an invalid total meal count.", () => {
+        // it("Should not create a StaffMember object with an invalid total meal count.", (done) => {
         //     this.staffMemberCreationOptions.totalMeals = "T3st";
         //     StaffMember.create(this.staffMemberCreationOptions)
         //         .then((staffmember) => {
-        //             fail("Validation failed to catch: invalid total meal count.")
+        //             fail("Validation failed to catch: invalid total meal count.");
+        //             done();
         //         })
         //         .catch((err) => {
         //             expect(err.errors.length).toEqual(1);
         //             expect(err.errors[0].message).toContain(errorMessages.totalMealsIsNotNumeric);
+        //             done();
         //         });
         // });
-        // it("Should not create a StaffMember object with a null adult guest meal count.", () => {
+        // it("Should not create a StaffMember object with a null adult guest meal count.", (done) => {
         //     this.staffMemberCreationOptions.adultGuestMeals = null;
         //     StaffMember.create(this.staffMemberCreationOptions)
         //         .then((staffmember) => {
-        //             fail("Validation failed to catch: null adult guest meal count.")
+        //             fail("Validation failed to catch: null adult guest meal count.");
+        //             done();
         //         })
         //         .catch((err) => {
         //             expect(err.errors.length).toEqual(1);
         //             expect(err.errors[0].message).toContain("StaffMember.adultGuestMeals cannot be null");
+        //             done();
         //         });
         // });
-        // it("Should not create a StaffMember object with an invalid adult guest meal count.", () => {
+        // it("Should not create a StaffMember object with an invalid adult guest meal count.", (done) => {
         //     this.staffMemberCreationOptions.adultGuestMeals = "T3st";
         //     StaffMember.create(this.staffMemberCreationOptions)
         //         .then((staffmember) => {
-        //             fail("Validation failed to catch: invalid adult guest meal count.")
+        //             fail("Validation failed to catch: invalid adult guest meal count.");
+        //             done();
         //         })
         //         .catch((err) => {
         //             expect(err.errors.length).toEqual(1);
         //             expect(err.errors[0].message).toContain(errorMessages.adultGuestMealsIsNotNumeric);
+        //             done();
         //         });
         // });
-        // it("Should not create a StaffMember object with a null child guest meal count.", () => {
+        // it("Should not create a StaffMember object with a null child guest meal count.", (done) => {
         //     this.staffMemberCreationOptions.childGuestMeals = null;
         //     StaffMember.create(this.staffMemberCreationOptions)
         //         .then((staffmember) => {
-        //             fail("Validation failed to catch: null child guest meal count.")
+        //             fail("Validation failed to catch: null child guest meal count.");
+        //             done();
         //         })
         //         .catch((err) => {
         //             expect(err.errors.length).toEqual(1);
         //             expect(err.errors[0].message).toContain("StaffMember.childGuestMeals cannot be null");
+        //             done();
         //         });
         // });
-        // it("Should not create a StaffMember object with an invalid child guest meal count.", () => {
+        // it("Should not create a StaffMember object with an invalid child guest meal count.", (done) => {
         //     this.staffMemberCreationOptions.childGuestMeals = "T3st";
         //     StaffMember.create(this.staffMemberCreationOptions)
         //         .then((staffmember) => {
-        //             fail("Validation failed to catch: invalid child guest meal count.")
+        //             fail("Validation failed to catch: invalid child guest meal count.");
+        //             done();
         //         })
         //         .catch((err) => {
         //             expect(err.errors.length).toEqual(1);
         //             expect(err.errors[0].message).toContain(errorMessages.childGuestMealsIsNotNumeric);
+        //             done();
         //         });
         // });
-        // it("Should not create a StaffMember object with a null volunteer meal count.", () => {
+        // it("Should not create a StaffMember object with a null volunteer meal count.", (done) => {
         //     this.staffMemberCreationOptions.volunteerMeals = null;
         //     StaffMember.create(this.staffMemberCreationOptions)
         //         .then((staffmember) => {
-        //             fail("Validation failed to catch: null volunteer meal count.")
+        //             fail("Validation failed to catch: null volunteer meal count.");
+        //             done();
         //         })
         //         .catch((err) => {
         //             expect(err.errors.length).toEqual(1);
         //             expect(err.errors[0].message).toContain("StaffMember.volunteerMeals cannot be null");
+        //             done();
         //         });
         // });
-        // it("Should not create a StaffMember object with an invalid volunteer meal count.", () => {
+        // it("Should not create a StaffMember object with an invalid volunteer meal count.", (done) => {
         //     this.staffMemberCreationOptions.volunteerMeals = "T3st";
         //     StaffMember.create(this.staffMemberCreationOptions)
         //         .then((staffmember) => {
-        //             fail("Validation failed to catch: invalid volunteer meal count.")
+        //             fail("Validation failed to catch: invalid volunteer meal count.");
+        //             done();
         //         })
         //         .catch((err) => {
         //             expect(err.errors.length).toEqual(1);
         //             expect(err.errors[0].message).toContain(errorMessages.volunteerMealsIsNotNumeric);
+        //             done();
         //         });
         // });
         // it("Should not create a StaffMember object with a null creating user value.", (done) => {
