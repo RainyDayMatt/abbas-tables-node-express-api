@@ -92,5 +92,10 @@ module.exports = {
             userDoesNotExist: "User with that email doesn't exist.",
             userCannotEnterMealCounts: "User with that email lacks permission to change properties."
         }
+    },
+    getStaffMemberCreationErrorMessages() {
+        return {
+            groupNameIsNotAString: "Group name must be a string."
+        }
     }
 };
