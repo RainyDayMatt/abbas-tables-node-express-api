@@ -26,6 +26,7 @@ module.exports = {
             otherPhoneIsNotNumeric: "Other phone must consist only of numbers.",
             canEnterMealCountIsNotBoolean: "Role (canEnterMealCount) must be a boolean.",
             canChangePropsIsNotBoolean: "Role (canChangeProps) must be a boolean.",
+            canChangeStaffMembersIsNotBoolean: "Role (canChangeStaffMembers) must be a boolean.",
             canCreateNewsItemsIsNotBoolean: "Role (canCreateNewsItems) must be a boolean.",
             canEditNewsItemsIsNotBoolean: "Role (canEditNewsItems) must be a boolean.",
             canDeleteNewsItemsIsNotBoolean: "Role (canDeleteNewsItems) must be a boolean.",
@@ -95,7 +96,21 @@ module.exports = {
     },
     getStaffMemberCreationErrorMessages() {
         return {
-            groupNameIsNotAString: "Group name must be a string."
+            groupNameAndNameCombinationIsNotUnique: "Combination of group name and name must be unique.",
+            groupNameIsNotAlphabeticalWithSpaces: "Group name must be alphabetical.",
+            orderNumberIsNotNumeric: "Order number must consist only of numbers.",
+            nameIsNotAlphabeticalWithSpaces: "Name must be alphabetical.",
+            titleIsNotAlphabeticalWithSpaces: "Title must be alphabetical.",
+            bioIsNotAcceptable: "Title must be between 1 and 1000 characters and consist only of letters and the following characters: ['.!?].",
+            userDoesNotExist: "User with that email doesn't exist.",
+            userCannotChangeStaffMembers: "User with that email lacks permission to change staff members.",
+            whichUserCreatedEmailIsInvalid: "Email signifying creating user must be a valid address.",
+            whichUserLastChangedEmailIsInvalid: "Email signifying changing user must be a valid address.",
+        }
+    },
+    getStaffMemberFetchErrorMessages() {
+        return {
+            groupNameAndNameCombinationDoesNotExist: "StaffMember with that group name and name does not exist."
         }
     }
 };

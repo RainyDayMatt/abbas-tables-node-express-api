@@ -118,6 +118,15 @@ module.exports = {
                     }
                 }
             },
+            canChangeStaffMembers: {
+                defaultValue: false,
+                type: types.BOOLEAN,
+                validate: {
+                    isBoolean: {
+                        msg: errorMessages.canChangeStaffMembersIsNotBoolean
+                    }
+                }
+            },
             canCreateNewsItems: {
                 defaultValue: false,
                 type: types.BOOLEAN,

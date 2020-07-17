@@ -1,26 +1,57 @@
+const fieldPatterns = require("../../support/dictionaries/regularExpressions").getStaffMemberFieldPatterns();
+
 module.exports = {
     getDefinition(types) {
         const errorMessages = require("../dictionaries/errorMessages").getStaffMemberCreationErrorMessages();
         return {
             groupName: {
                 allowNull: false,
-                type: types.STRING
+                type: types.STRING,
+                validate: {
+                    is: {
+                        args: [ fieldPatterns.groupName ],
+                        msg: errorMessages.groupNameIsNotAlphabeticalWithSpaces
+                    }
+                }
             },
             orderNumber: {
                 allowNull: false,
-                type: types.INTEGER
+                type: types.INTEGER,
+                validate: {
+                    isNumeric: {
+                        msg: errorMessages.orderNumberIsNotNumeric
+                    }
+                }
             },
             name: {
                 allowNull: false,
-                type: types.STRING
+                type: types.STRING,
+                validate: {
+                    is: {
+                        args: [ fieldPatterns.name ],
+                        msg: errorMessages.nameIsNotAlphabeticalWithSpaces
+                    }
+                }
             },
             title: {
                 allowNull: false,
-                type: types.STRING
+                type: types.STRING,
+                validate: {
+                    is: {
+                        args: [ fieldPatterns.title ],
+                        msg: errorMessages.titleIsNotAlphabeticalWithSpaces
+                    }
+                }
             },
             bio: {
                 allowNull: false,
-                type: types.STRING(1000)
+                type: types.STRING,
+                validate: {
+                    is: {
+                        args: [ fieldPatterns.bio ],
+                        msg: errorMessages.bioIsNotAcceptable
+                    }
+                }
             },
             whichUserCreated: {
                 allowNull: false,

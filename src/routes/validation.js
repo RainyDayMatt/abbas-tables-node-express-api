@@ -1,4 +1,5 @@
 const errorMessages = require("../support/dictionaries/errorMessages");
+const regularExpressions = require("../support/dictionaries/regularExpressions");
 
 module.exports = {
     validateUsers(req, res, next) {
@@ -20,6 +21,12 @@ module.exports = {
                 optional: true,
                 isBoolean: {
                     errorMessage: errorMessages.getUserCreationErrorMessages().canChangePropsIsNotBoolean
+                }
+            }});
+            req.checkBody({"canChangeStaffMembers": {
+                optional: true,
+                isBoolean: {
+                    errorMessage: errorMessages.getUserCreationErrorMessages().canChangeStaffMembersIsNotBoolean
                 }
             }});
             req.checkBody({"canCreateNewsItems": {
@@ -171,6 +178,82 @@ module.exports = {
                     errorMessage: errorMessages.getServingSummaryCreationErrorMessages().whichUserLastChangedEmailIsInvalid
                 }
             }});
+        }
+
+        if (req.validationErrors()) {
+            const errors = [];
+            req.validationErrors().forEach((error) => {
+                errors.push(error.msg);
+            });
+            return res.status(400).json({ err: errors });
+        } else {
+            return next();
+        }
+    },
+    validateStaffMembers(req, res, next) {
+        if (req.method === "POST") {
+            req.checkBody("groupName", errorMessages.getStaffMemberCreationErrorMessages().groupNameIsNotAlphabeticalWithSpaces).matches(regularExpressions.getStaffMemberFieldPatterns().groupName);
+            req.checkBody("orderNumber", errorMessages.getStaffMemberCreationErrorMessages().orderNumberIsNotNumeric).isNumeric();
+            req.checkBody("name", errorMessages.getStaffMemberCreationErrorMessages().nameIsNotAlphabeticalWithSpaces).matches(regularExpressions.getStaffMemberFieldPatterns().name);
+            req.checkBody("title", errorMessages.getStaffMemberCreationErrorMessages().titleIsNotAlphabeticalWithSpaces).matches(regularExpressions.getStaffMemberFieldPatterns().title);
+            req.checkBody("bio", errorMessages.getStaffMemberCreationErrorMessages().bioIsNotAcceptable).matches(regularExpressions.getStaffMemberFieldPatterns().bio);
+            req.checkBody("whichUserCreated", errorMessages.getStaffMemberCreationErrorMessages().whichUserCreatedEmailIsInvalid).isEmail();
+            req.checkBody("whichUserLastChanged", errorMessages.getStaffMemberCreationErrorMessages().whichUserLastChangedEmailIsInvalid).isEmail();
+        // } else if (req.method === "PATCH") {
+        //     req.checkBody({"year": {
+        //             optional: true,
+        //             isNumeric: {
+        //                 errorMessage: errorMessages.getStaffMemberCreationErrorMessages().yearIsNotNumeric
+        //             }
+        //         }});
+        //     req.checkBody({"month": {
+        //             optional: true,
+        //             isNumeric: {
+        //                 errorMessage: errorMessages.getStaffMemberCreationErrorMessages().monthIsNotNumeric
+        //             }
+        //         }});
+        //     req.checkBody({"day": {
+        //             optional: true,
+        //             isNumeric: {
+        //                 errorMessage: errorMessages.getStaffMemberCreationErrorMessages().dayIsNotNumeric
+        //             }
+        //         }});
+        //     req.checkBody({"totalMeals": {
+        //             optional: true,
+        //             isNumeric: {
+        //                 errorMessage: errorMessages.getStaffMemberCreationErrorMessages().totalMealsIsNotNumeric
+        //             }
+        //         }});
+        //     req.checkBody({"adultGuestMeals": {
+        //             optional: true,
+        //             isNumeric: {
+        //                 errorMessage: errorMessages.getStaffMemberCreationErrorMessages().adultGuestMealsIsNotNumeric
+        //             }
+        //         }});
+        //     req.checkBody({"childGuestMeals": {
+        //             optional: true,
+        //             isNumeric: {
+        //                 errorMessage: errorMessages.getStaffMemberCreationErrorMessages().childGuestMealsIsNotNumeric
+        //             }
+        //         }});
+        //     req.checkBody({"volunteerMeals": {
+        //             optional: true,
+        //             isNumeric: {
+        //                 errorMessage: errorMessages.getStaffMemberCreationErrorMessages().volunteerMealsIsNotNumeric
+        //             }
+        //         }});
+        //     req.checkBody({"whichUserCreated": {
+        //             optional: true,
+        //             isEmail: {
+        //                 errorMessage: errorMessages.getStaffMemberCreationErrorMessages().whichUserCreatedEmailIsInvalid
+        //             }
+        //         }});
+        //     req.checkBody({"whichUserLastChanged": {
+        //             optional: true,
+        //             isEmail: {
+        //                 errorMessage: errorMessages.getStaffMemberCreationErrorMessages().whichUserLastChangedEmailIsInvalid
+        //             }
+        //         }});
         }
 
         if (req.validationErrors()) {

@@ -54,6 +54,7 @@ describe("routes : users", () => {
                         .then((user) => {
                             expect(user.canEnterMealCount).toBe(false);
                             expect(user.canChangeProps).toBe(false);
+                            expect(user.canChangeStaffMembers).toBe(false);
                             expect(user.canCreateNewsItems).toBe(false);
                             expect(user.canEditNewsItems).toBe(false);
                             expect(user.canDeleteNewsItems).toBe(false);
@@ -301,6 +302,24 @@ describe("routes : users", () => {
                             expect(user).toBeNull();
                             expect(JSON.parse(body).err.length).toBe(1);
                             expect(JSON.parse(body).err[0]).toBe(errorMessages.getUserCreationErrorMessages().canChangePropsIsNotBoolean);
+                            done();
+                        })
+                        .catch((err) => {
+                            console.log(err);
+                            done();
+                        });
+                }
+            );
+        });
+        it("Should not create a User object with invalid authorization flag value (canChangeStaffMembers).", (done) => {
+            this.userCreationOptions.form.canChangeStaffMembers = "sqlInjection";
+            request.post(this.userCreationOptions,
+                (err, res, body) => {
+                    User.findOne({ where: { email: this.userCreationOptions.form.email } })
+                        .then((user) => {
+                            expect(user).toBeNull();
+                            expect(JSON.parse(body).err.length).toBe(1);
+                            expect(JSON.parse(body).err[0]).toBe(errorMessages.getUserCreationErrorMessages().canChangeStaffMembersIsNotBoolean);
                             done();
                         })
                         .catch((err) => {
