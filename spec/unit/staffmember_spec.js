@@ -30,15 +30,15 @@ describe("StaffMember", () => {
         });
         it("Should create a StaffMember object with valid values.", (done) => {
             StaffMember.create(this.staffMemberCreationOptions)
-                .then((staffmember) => {
-                    expect(staffmember.id).toBe(1);
-                    expect(staffmember.groupName).toBe(this.staffMemberCreationOptions.groupName);
-                    expect(staffmember.orderNumber).toBe(this.staffMemberCreationOptions.orderNumber);
-                    expect(staffmember.name).toBe(this.staffMemberCreationOptions.name);
-                    expect(staffmember.title).toBe(this.staffMemberCreationOptions.title);
-                    expect(staffmember.bio).toBe(this.staffMemberCreationOptions.bio);
-                    expect(staffmember.whichUserCreated).toBe(this.staffMemberCreationOptions.whichUserCreated);
-                    expect(staffmember.whichUserLastChanged).toBe(this.staffMemberCreationOptions.whichUserLastChanged);
+                .then((staffMember) => {
+                    expect(staffMember.id).toBe(1);
+                    expect(staffMember.groupName).toBe(this.staffMemberCreationOptions.groupName);
+                    expect(staffMember.orderNumber).toBe(this.staffMemberCreationOptions.orderNumber);
+                    expect(staffMember.name).toBe(this.staffMemberCreationOptions.name);
+                    expect(staffMember.title).toBe(this.staffMemberCreationOptions.title);
+                    expect(staffMember.bio).toBe(this.staffMemberCreationOptions.bio);
+                    expect(staffMember.whichUserCreated).toBe(this.staffMemberCreationOptions.whichUserCreated);
+                    expect(staffMember.whichUserLastChanged).toBe(this.staffMemberCreationOptions.whichUserLastChanged);
                     done();
                 })
                 .catch((err) => {
@@ -49,7 +49,7 @@ describe("StaffMember", () => {
         it("Should not create a StaffMember object with a null group name.", (done) => {
             this.staffMemberCreationOptions.groupName = null;
             StaffMember.create(this.staffMemberCreationOptions)
-                .then((staffmember) => {
+                .then((staffMember) => {
                     fail("Validation failed to catch: null group name.");
                     done();
                 })
@@ -62,7 +62,7 @@ describe("StaffMember", () => {
         it("Should not create a StaffMember object with an invalid group name.", (done) => {
             this.staffMemberCreationOptions.groupName = 225;
             StaffMember.create(this.staffMemberCreationOptions)
-                .then((staffmember) => {
+                .then((staffMember) => {
                     fail("Validation failed to catch: invalid group name.");
                     done();
                 })
@@ -75,7 +75,7 @@ describe("StaffMember", () => {
         it("Should not create a StaffMember object with a null order name.", (done) => {
             this.staffMemberCreationOptions.orderNumber = null;
             StaffMember.create(this.staffMemberCreationOptions)
-                .then((staffmember) => {
+                .then((staffMember) => {
                     fail("Validation failed to catch: null order number.");
                     done();
                 })
@@ -88,7 +88,7 @@ describe("StaffMember", () => {
         it("Should not create a StaffMember object with an invalid order number.", (done) => {
             this.staffMemberCreationOptions.orderNumber = "T3st";
             StaffMember.create(this.staffMemberCreationOptions)
-                .then((staffmember) => {
+                .then((staffMember) => {
                     fail("Validation failed to catch: invalid order number.");
                     done();
                 })
@@ -101,7 +101,7 @@ describe("StaffMember", () => {
         it("Should not create a StaffMember object with a null name.", (done) => {
             this.staffMemberCreationOptions.name = null;
             StaffMember.create(this.staffMemberCreationOptions)
-                .then((staffmember) => {
+                .then((staffMember) => {
                     fail("Validation failed to catch: null name.");
                     done();
                 })
@@ -114,7 +114,7 @@ describe("StaffMember", () => {
         it("Should not create a StaffMember object with an invalid name.", (done) => {
             this.staffMemberCreationOptions.name = 225;
             StaffMember.create(this.staffMemberCreationOptions)
-                .then((staffmember) => {
+                .then((staffMember) => {
                     fail("Validation failed to catch: invalid name.");
                     done();
                 })
@@ -127,7 +127,7 @@ describe("StaffMember", () => {
         it("Should not create a StaffMember object with a null title.", (done) => {
             this.staffMemberCreationOptions.title = null;
             StaffMember.create(this.staffMemberCreationOptions)
-                .then((staffmember) => {
+                .then((staffMember) => {
                     fail("Validation failed to catch: null title.");
                     done();
                 })
@@ -140,7 +140,7 @@ describe("StaffMember", () => {
         it("Should not create a StaffMember object with an invalid title.", (done) => {
             this.staffMemberCreationOptions.title = "T3st";
             StaffMember.create(this.staffMemberCreationOptions)
-                .then((staffmember) => {
+                .then((staffMember) => {
                     fail("Validation failed to catch: invalid title.");
                     done();
                 })
@@ -153,7 +153,7 @@ describe("StaffMember", () => {
         it("Should not create a StaffMember object with a null bio.", (done) => {
             this.staffMemberCreationOptions.bio = null;
             StaffMember.create(this.staffMemberCreationOptions)
-                .then((staffmember) => {
+                .then((staffMember) => {
                     fail("Validation failed to catch: null bio.");
                     done();
                 })
@@ -166,7 +166,7 @@ describe("StaffMember", () => {
         it("Should not create a StaffMember object with a null creating user value.", (done) => {
             this.staffMemberCreationOptions.whichUserCreated = null;
             StaffMember.create(this.staffMemberCreationOptions)
-                .then((staffmember) => {
+                .then((staffMember) => {
                     fail("Validation failed to catch: null creating user value.");
                     done();
                 })
@@ -178,7 +178,7 @@ describe("StaffMember", () => {
         it("Should not create a StaffMember object with a null last changing user value.", (done) => {
             this.staffMemberCreationOptions.whichUserLastChanged = null;
             StaffMember.create(this.staffMemberCreationOptions)
-                .then((staffmember) => {
+                .then((staffMember) => {
                     fail("Validation failed to catch: null last changing user value.");
                     done();
                 })

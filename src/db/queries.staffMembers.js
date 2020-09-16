@@ -6,8 +6,8 @@ const errorMessages = require("../support/dictionaries/errorMessages");
 module.exports = {
     checkStaffMemberGroupNameAndNameAvailability(name, groupName, callback) {
         StaffMember.findAll({ where: { name, groupName } })
-            .then((staffmembers) => {
-                if (staffmembers.length > 0) {
+            .then((staffMembers) => {
+                if (staffMembers.length > 0) {
                     callback(errorMessages.getStaffMemberCreationErrorMessages().groupNameAndNameCombinationIsNotUnique);
                 } else {
                     callback(null);
@@ -36,47 +36,60 @@ module.exports = {
     },
     getStaffMember(groupName, name, callback) {
         return StaffMember.findOne({ where: { groupName: groupName, name: name } })
-            .then((staffmember) => {
-                if (!staffmember) {
-                    callback([ errorMessages.getStaffMemberFetchErrorMessages().groupNameAndNameCombinationDoesNotExist ]);
+            .then((staffMember) => {
+                if (!staffMember) {
+                    callback([ errorMessages.getStaffMemberUpdateErrorMessages().groupNameAndNameCombinationDoesNotExist ]);
                 } else {
-                    callback(null, staffmember);
+                    callback(null, staffMember);
                 }
             })
             .catch((err) => {
                 callback([ err ]);
             });
     },
-    // updateStaffMember(key, updatedStaffMember, updatingUserEmail, callback) {
-    //     return StaffMember.findOne({ where: { key: key } })
-    //         .then((staffmember) => {
-    //             if (!staffmember) {
-    //                 callback([ errorMessages.getStaffMemberUpdateErrorMessages().keyDoesNotExist ]);
-    //             } else {
-    //                 User.findOne({ where: { email: updatingUserEmail } })
-    //                     .then((user) => {
-    //                         if (!user) {
-    //                             callback([ errorMessages.getStaffMemberUpdateErrorMessages().userDoesNotExist ]);
-    //                         } else {
-    //                             if (!user.canChangeProps) {
-    //                                 callback([ errorMessages.getStaffMemberUpdateErrorMessages().userCannotChangeProperties ]);
-    //                             } else {
-    //                                 staffmember.update(updatedStaffMember, {
-    //                                     fields: Object.keys(updatedStaffMember)
-    //                                 })
-    //                                     .then((updatedStaffMember) => {
-    //                                         callback(null, updatedStaffMember);
-    //                                     })
-    //                                     .catch((err) => {
-    //                                         callback([ err.message ]);
-    //                                     });
-    //                             }
-    //                         }
-    //                     });
-    //             }
-    //         })
-    //         .catch((err) => {
-    //             callback([ err ]);
-    //         });
-    // }
+    updateStaffMember(groupName, name, updatedStaffMember, updatingUserEmail, callback) {
+        return StaffMember.findOne({ where: { groupName: groupName, name: name } })
+            .then((staffMember) => {
+                if (!staffMember) {
+                    callback([ errorMessages.getStaffMemberUpdateErrorMessages().groupNameAndNameCombinationDoesNotExist ]);
+                } else {
+                    User.findOne({ where: { email: updatingUserEmail } })
+                        .then((user) => {
+                            if (!user) {
+                                callback([ errorMessages.getStaffMemberUpdateErrorMessages().userDoesNotExist ]);
+                            } else {
+                                if (!user.canChangeStaffMembers) {
+                                    callback([ errorMessages.getStaffMemberUpdateErrorMessages().userCannotChangeStaffMembers ]);
+                                } else {
+                                    staffMember.update(updatedStaffMember, {
+                                        fields: Object.keys(updatedStaffMember)
+                                    })
+                                        .then((updatedStaffMember) => {
+                                            callback(null, updatedStaffMember);
+                                        })
+                                        .catch((err) => {
+                                            callback([ err.message ]);
+                                        });
+                                }
+                            }
+                        });
+                }
+            })
+            .catch((err) => {
+                callback([ err ]);
+            });
+    },
+    getGroup(groupName, callback) {
+        return StaffMember.findAll({ where: { groupName: groupName } })
+            .then((staffMembers) => {
+                if (!staffMembers.length) {
+                    callback([ errorMessages.getStaffMemberGroupFetchErrorMessages().groupNameDoesNotExist ]);
+                } else {
+                    callback(null, staffMembers);
+                }
+            })
+            .catch((err) => {
+                callback([ err ]);
+            });
+    }
 };

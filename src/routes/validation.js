@@ -199,13 +199,14 @@ module.exports = {
             req.checkBody("bio", errorMessages.getStaffMemberCreationErrorMessages().bioIsNotAcceptable).matches(regularExpressions.getStaffMemberFieldPatterns().bio);
             req.checkBody("whichUserCreated", errorMessages.getStaffMemberCreationErrorMessages().whichUserCreatedEmailIsInvalid).isEmail();
             req.checkBody("whichUserLastChanged", errorMessages.getStaffMemberCreationErrorMessages().whichUserLastChangedEmailIsInvalid).isEmail();
-        // } else if (req.method === "PATCH") {
-        //     req.checkBody({"year": {
-        //             optional: true,
-        //             isNumeric: {
-        //                 errorMessage: errorMessages.getStaffMemberCreationErrorMessages().yearIsNotNumeric
-        //             }
-        //         }});
+        } else if (req.method === "PATCH") {
+            req.checkBody("groupName", errorMessages.getStaffMemberCreationErrorMessages().groupNameIsNotAlphabeticalWithSpaces).matches(regularExpressions.getStaffMemberFieldPatterns().groupName).optional();
+            req.checkBody("orderNumber", errorMessages.getStaffMemberCreationErrorMessages().orderNumberIsNotNumeric).isNumeric().optional();
+            req.checkBody("name", errorMessages.getStaffMemberCreationErrorMessages().nameIsNotAlphabeticalWithSpaces).matches(regularExpressions.getStaffMemberFieldPatterns().name).optional();
+            req.checkBody("title", errorMessages.getStaffMemberCreationErrorMessages().titleIsNotAlphabeticalWithSpaces).matches(regularExpressions.getStaffMemberFieldPatterns().title).optional();
+            req.checkBody("bio", errorMessages.getStaffMemberCreationErrorMessages().bioIsNotAcceptable).matches(regularExpressions.getStaffMemberFieldPatterns().bio).optional();
+            req.checkBody("whichUserCreated", errorMessages.getStaffMemberCreationErrorMessages().whichUserCreatedEmailIsInvalid).isEmail().optional();
+            req.checkBody("whichUserLastChanged", errorMessages.getStaffMemberCreationErrorMessages().whichUserLastChangedEmailIsInvalid).isEmail().optional();
         //     req.checkBody({"month": {
         //             optional: true,
         //             isNumeric: {

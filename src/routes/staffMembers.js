@@ -7,6 +7,7 @@ const staffMemberController = require("../controllers/staffMemberController");
 
 router.post("/staffMembers", validation.validateStaffMembers, helpers.checkStaffMemberGroupNameAndNameAvailability, staffMemberController.create);
 router.get("/staffMembers/groupName/:groupName/name/:name", staffMemberController.get);
-// router.patch("/staffMembers/:key", validation.validateStaffMembers, helpers.checkStaffMemberKeyAvailability, staffMemberController.update);
+router.patch("/staffMembers/groupName/:groupName/name/:name", validation.validateStaffMembers, staffMemberController.update);
+router.get("/staffMembers/groupName/:groupName", staffMemberController.getGroup);
 
 module.exports = router;

@@ -108,9 +108,16 @@ module.exports = {
             whichUserLastChangedEmailIsInvalid: "Email signifying changing user must be a valid address.",
         }
     },
-    getStaffMemberFetchErrorMessages() {
+    getStaffMemberUpdateErrorMessages() {
         return {
-            groupNameAndNameCombinationDoesNotExist: "StaffMember with that group name and name does not exist."
+            groupNameAndNameCombinationDoesNotExist: "StaffMember with that group name and name doesn't exist.",
+            userDoesNotExist: "User with that email doesn't exist.",
+            userCannotChangeStaffMembers: "User with that email lacks permission to change staff members."
+        }
+    },
+    getStaffMemberGroupFetchErrorMessages() {
+        return {
+            groupNameDoesNotExist: "Group with that name doesn't exist."
         }
     }
 };
