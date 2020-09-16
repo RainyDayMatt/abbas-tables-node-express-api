@@ -48,6 +48,7 @@ describe("User", () => {
                 .then((user) => {
                     expect(user.canEnterMealCount).toBe(false);
                     expect(user.canChangeProps).toBe(false);
+                    expect(user.canChangeStaffMembers).toBe(false);
                     expect(user.canCreateNewsItems).toBe(false);
                     expect(user.canEditNewsItems).toBe(false);
                     expect(user.canDeleteNewsItems).toBe(false);
@@ -322,6 +323,7 @@ describe("User", () => {
         it("Should not create a User object with invalid authorization flag values.", (done) => {
             this.userCreationOptions.canEnterMealCount = "sqlInjection";
             this.userCreationOptions.canChangeProps = "sqlInjection";
+            this.userCreationOptions.canChangeStaffMembers = "sqlInjection";
             this.userCreationOptions.canCreateNewsItems = "sqlInjection";
             this.userCreationOptions.canEditNewsItems = "sqlInjection";
             this.userCreationOptions.canDeleteNewsItems = "sqlInjection";
@@ -337,13 +339,14 @@ describe("User", () => {
                 .catch((err) => {
                     expect(err.errors[0].message).toBe(errorMessages.canEnterMealCountIsNotBoolean);
                     expect(err.errors[1].message).toBe(errorMessages.canChangePropsIsNotBoolean);
-                    expect(err.errors[2].message).toBe(errorMessages.canCreateNewsItemsIsNotBoolean);
-                    expect(err.errors[3].message).toBe(errorMessages.canEditNewsItemsIsNotBoolean);
-                    expect(err.errors[4].message).toBe(errorMessages.canDeleteNewsItemsIsNotBoolean);
-                    expect(err.errors[5].message).toBe(errorMessages.canCreateNewsItemCommentsIsNotBoolean);
-                    expect(err.errors[6].message).toBe(errorMessages.canEditNewsItemCommentsIsNotBoolean);
-                    expect(err.errors[7].message).toBe(errorMessages.canDeleteNewsItemCommentsIsNotBoolean);
-                    expect(err.errors[8].message).toBe(errorMessages.canChangeRolesIsNotBoolean);
+                    expect(err.errors[2].message).toBe(errorMessages.canChangeStaffMembersIsNotBoolean);
+                    expect(err.errors[3].message).toBe(errorMessages.canCreateNewsItemsIsNotBoolean);
+                    expect(err.errors[4].message).toBe(errorMessages.canEditNewsItemsIsNotBoolean);
+                    expect(err.errors[5].message).toBe(errorMessages.canDeleteNewsItemsIsNotBoolean);
+                    expect(err.errors[6].message).toBe(errorMessages.canCreateNewsItemCommentsIsNotBoolean);
+                    expect(err.errors[7].message).toBe(errorMessages.canEditNewsItemCommentsIsNotBoolean);
+                    expect(err.errors[8].message).toBe(errorMessages.canDeleteNewsItemCommentsIsNotBoolean);
+                    expect(err.errors[9].message).toBe(errorMessages.canChangeRolesIsNotBoolean);
                     done();
                 });
         });

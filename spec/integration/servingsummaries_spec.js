@@ -656,16 +656,6 @@ describe("routes : servingSummaries", () => {
                     done();
                 });
         });
-        it("Should return the appropriate error when an invalid user email is supplied.", (done) => {
-            this.servingSummaryUpdateOptions.form.whichUserLastChanged = "ShepardAtn7Dotgov";
-            request.patch(this.servingSummaryUpdateOptions,
-                (err, res, body) => {
-                    expect(JSON.parse(body).err.length).toBe(1);
-                    expect(JSON.parse(body).err[0]).toBe(errorMessages.getServingSummaryCreationErrorMessages().whichUserLastChangedEmailIsInvalid);
-                    done();
-                }
-            );
-        });
         it("Should return the appropriate error when an unregistered user email is supplied.", (done) => {
             request.patch(this.servingSummaryUpdateOptions,
                 (err, res, body) => {
